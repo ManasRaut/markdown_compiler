@@ -28,6 +28,22 @@ const (
 	EL_UNCHECKED_BOX    ElementType = "UNCHECKED_BOX"
 )
 
+type ElementCategory int
+
+const (
+	CATEGORY_BLOCK ElementCategory = iota
+	CATEGORY_SELF_CONTAINED
+	CATEGORY_INLINE
+)
+
+type ElementContentType int
+
+const (
+	CONTENT_TYPE_PLAIN_TEXT ElementContentType = iota
+	CONTENT_TYPE_INLINE_ELEMENTS
+	CONTENT_TYPE_NONE
+)
+
 // ************************************************************
 // 						Block Elements
 // ************************************************************

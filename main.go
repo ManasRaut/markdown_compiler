@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"log"
 
 	"github.com/ManasRaut/lexe/ir"
 	"github.com/ManasRaut/lexe/lexer"
@@ -24,7 +25,11 @@ func main() {
 
 	psr := parser.NewParser(tokens)
 
-	fmt.Println(psr.Parse())
+	err := psr.Parse()
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	fmt.Println(psr.GetElements())
 }
 
 func printTokens(tokens []ir.Token) {
