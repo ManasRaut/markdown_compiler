@@ -27,16 +27,17 @@ func Test_parseBlockElements(t *testing.T) {
 				{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}, {T: ir.TK_LINE_BREAK, V: "\n"},
 			},
 			want: []unFinishedElement{
-				{Def: elementDefinitions[ir.TK_HEADING_1], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is heading 1"}}},
-				{Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
-				{Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
-				{Def: elementDefinitions[ir.TK_CODE_BLOCK], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}}},
-				{Def: elementDefinitions[ir.TK_NORMAL_TEXT], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}, {T: ir.TK_CODE_BLOCK, V: "```"}}},
-				{Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
-				{Def: elementDefinitions[ir.TK_NORMAL_TEXT], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "```"}}}, {Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
-				{Def: elementDefinitions[ir.TK_NORMAL_TEXT], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}}}, {Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
-				{Def: elementDefinitions[ir.TK_NORMAL_TEXT], V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}}}, {Def: elementDefinitions[ir.TK_LINE_BREAK], V: []ir.Token{}},
+				{Def: ir.HEADING_1_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is heading 1"}}},
+				{Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
+				{Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
+				{Def: ir.CODE_BLOCK_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}}},
+				{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}, {T: ir.TK_CODE_BLOCK, V: "```"}}},
+				{Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
+				{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "```"}}}, {Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
+				{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 1');"}}}, {Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
+				{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello Line 2');"}}}, {Def: ir.LINE_BREAK_DEFINITION, V: []ir.Token{}},
 			},
+			// TODO: add inline elements test cases
 		},
 	}
 	for _, tt := range tests {
@@ -76,11 +77,12 @@ func Test_parseAllBlockElements(t *testing.T) {
 		wantElems unFinishedElement
 		wantI     int
 	}{
+		// TODO: add inline elements test cases
 		{
 			name: "Base case",
 			tkns: []ir.Token{{T: ir.TK_HEADING_1, V: "# "}, {T: ir.TK_NORMAL_TEXT, V: "This is heading 1"}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_HEADING_1],
+				Def: ir.HEADING_1_DEFINITION,
 				V: []ir.Token{
 					{T: ir.TK_NORMAL_TEXT, V: "This is heading 1"},
 				},
@@ -91,7 +93,7 @@ func Test_parseAllBlockElements(t *testing.T) {
 			name: "Heading 1 with line break",
 			tkns: []ir.Token{{T: ir.TK_HEADING_1, V: "# "}, {T: ir.TK_NORMAL_TEXT, V: "This is heading 1"}, {T: ir.TK_LINE_BREAK, V: "\n"}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_HEADING_1],
+				Def: ir.HEADING_1_DEFINITION,
 				V: []ir.Token{
 					{T: ir.TK_NORMAL_TEXT, V: "This is heading 1"},
 				},
@@ -102,7 +104,7 @@ func Test_parseAllBlockElements(t *testing.T) {
 			name: "Heading 1 with no contents",
 			tkns: []ir.Token{{T: ir.TK_HEADING_1, V: "# "}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_HEADING_1],
+				Def: ir.HEADING_1_DEFINITION,
 				V:   []ir.Token{},
 			},
 			wantI: 1,
@@ -111,7 +113,7 @@ func Test_parseAllBlockElements(t *testing.T) {
 			name: "Multiline Block",
 			tkns: []ir.Token{{T: ir.TK_CODE_BLOCK, V: "```"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello world');"}, {T: ir.TK_CODE_BLOCK, V: "```"}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_CODE_BLOCK],
+				Def: ir.CODE_BLOCK_DEFINITION,
 				V: []ir.Token{
 					{T: ir.TK_NORMAL_TEXT, V: "console.log('Hello world');"},
 				},
@@ -122,18 +124,65 @@ func Test_parseAllBlockElements(t *testing.T) {
 			name: "Multi line line block element with error",
 			tkns: []ir.Token{{T: ir.TK_CODE_BLOCK, V: "```"}, {T: ir.TK_NORMAL_TEXT, V: "console.log('Hello world');"}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_NORMAL_TEXT],
+				Def: ir.NORMAL_TEXT_DEFINITION,
 				V: []ir.Token{
 					{T: ir.TK_NORMAL_TEXT, V: "```"},
 				},
 			},
 			wantI: 1,
 		},
+		{
+			name: "Normal text with mutiple and nested inline elements",
+			tkns: []ir.Token{
+				{T: ir.TK_NORMAL_TEXT, V: "This paragraph contains an "},
+				{T: ir.TK_ITALIC, V: "*"},
+				{T: ir.TK_NORMAL_TEXT, V: "italic "},
+				{T: ir.TK_ITALIC, V: "*"},
+				{T: ir.TK_BOLD, V: "**"},
+				{T: ir.TK_NORMAL_TEXT, V: "bold"},
+				{T: ir.TK_BOLD, V: "**"},
+				{T: ir.TK_NORMAL_TEXT, V: " and "},
+				{T: ir.TK_STRIKETHROUGH, V: "~~"},
+				{T: ir.TK_NORMAL_TEXT, V: " strikethourgh text."},
+				{T: ir.TK_STRIKETHROUGH, V: "~~"},
+				{T: ir.TK_NORMAL_TEXT, V: "Also has "},
+				{T: ir.TK_STRIKETHROUGH, V: "~~"},
+				{T: ir.TK_NORMAL_TEXT, V: "bold"},
+				{T: ir.TK_NORMAL_TEXT, V: " nested strikethought and bold "},
+				{T: ir.TK_NORMAL_TEXT, V: "bold"},
+				{T: ir.TK_STRIKETHROUGH, V: "~~"},
+				{T: ir.TK_NORMAL_TEXT, V: "."},
+			},
+			wantElems: unFinishedElement{
+				Def: ir.NORMAL_TEXT_DEFINITION,
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This paragraph contains an "},
+					{T: ir.TK_ITALIC, V: "*"},
+					{T: ir.TK_NORMAL_TEXT, V: "italic "},
+					{T: ir.TK_ITALIC, V: "*"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: " and "},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: " strikethourgh text."},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "Also has "},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_NORMAL_TEXT, V: " nested strikethought and bold "},
+					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "."},
+				},
+			},
+			wantI: 18,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			g, i := parseAllBlockElements(0, tt.tkns, elementDefinitions[tt.tkns[0].T])
+			g, i := parseAllBlockElements(0, tt.tkns, ir.ElementDefinitions[tt.tkns[0].T])
 			w := tt.wantElems
 
 			if w.Def != g.Def {
@@ -167,7 +216,7 @@ func Test_parseSelfStandingElements(t *testing.T) {
 			name: "Base case",
 			tkns: []ir.Token{{T: ir.TK_LINE_BREAK, V: "\n"}},
 			wantElems: unFinishedElement{
-				Def: elementDefinitions[ir.TK_LINE_BREAK],
+				Def: ir.LINE_BREAK_DEFINITION,
 				V:   []ir.Token{},
 			},
 			wantI: 1,
@@ -176,7 +225,7 @@ func Test_parseSelfStandingElements(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			g, i := parseSelfStandingElements(0, tt.tkns, elementDefinitions[tt.tkns[0].T])
+			g, i := parseSelfStandingElements(0, tt.tkns, ir.ElementDefinitions[tt.tkns[0].T])
 			w := tt.wantElems
 
 			if w.Def != g.Def {
@@ -197,4 +246,76 @@ func Test_parseSelfStandingElements(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_parseInlineElements(t *testing.T) {
+	tests := []struct {
+		name string
+		e    unFinishedElement
+		want []*ir.MarkdownElement
+	}{
+		{
+			name: "Self standing element",
+			e:    unFinishedElement{Def: ir.HORIZONTAL_LINE_DEFINITION, V: []ir.Token{}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.HORIZONTAL_LINE_DEFINITION, "", nil)},
+		},
+		{
+			name: "CodeBlock",
+			e:    unFinishedElement{Def: ir.CODE_BLOCK_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is a heading 1"}}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.CODE_BLOCK_DEFINITION, "This is a heading 1", nil)},
+		},
+		{
+			name: "Heading 1 with normal text",
+			e:    unFinishedElement{Def: ir.HEADING_1_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is a heading 1"}}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.HEADING_1_DEFINITION, "", []*ir.MarkdownElement{ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This is a heading 1", nil)})},
+		},
+		{
+			name: "Bold in normal text",
+			e: unFinishedElement{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{
+				{T: ir.TK_NORMAL_TEXT, V: "This is a "},
+				{T: ir.TK_BOLD, V: "BOLD"},
+				{T: ir.TK_NORMAL_TEXT, V: " text."}}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "", []*ir.MarkdownElement{
+					ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This is a ", nil),
+					ir.NewMarkDownElement(ir.BOLD_DEFINITION, "BOLD", nil),
+					ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, " text.", nil),
+				})},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := parseInlineElements(&tt.e)
+			if !deepCompare(tt.want[0], got) {
+				t.Fatalf("\nWant \n\t%v,\ngot \n\t%v", tt.want[0], got)
+			}
+		})
+	}
+}
+
+func deepCompare(w *ir.MarkdownElement, g *ir.MarkdownElement) bool {
+
+	if w == nil && g == nil {
+		return true
+	}
+	if (w == nil && g != nil) || (w != nil && g == nil) || (w.V != g.V) {
+		return false
+	}
+	if w.C == nil && g.C == nil {
+		return true
+	}
+	if (w.C == nil && g.C != nil) || (w.C != nil && g.C == nil) {
+		return false
+	}
+	for i := range w.C {
+		a := w.C[i]
+		b := g.C[i]
+		if !deepCompare(a, b) {
+			return false
+		}
+	}
+	return true
 }
