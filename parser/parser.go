@@ -119,20 +119,106 @@ func parseInlineElements(el *unFinishedElement) *ir.MarkdownElement {
 	return ir.NewMarkDownElement(el.Def, "", parseInlineElementsTokens(el.V))
 }
 
+// TODO: Refactor this entire function later
 func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
-	/*
-		- Iterate throught tokens
-		- if starts with a NORMAL_TEXT
-			- When an inline element token is found or it ends create a normal_text element
-		- If an token of an inline element is found
-			- Start looking for its end token
-			- If not found then the found token is a normal text element
-			- if end token found, create that inline element and
-				- call parseInlineElementsTokens on the tokens in between start and end token
-				- and assign the returned children to it
+	children := make([]*ir.MarkdownElement, 0)
 
-	*/
-	panic("Method Not implemented!!")
+	startToken := ir.TK_UNKNOWN
+	startIdx := 0
+
+	i := 0
+	l := len(tkns)
+
+	for i <= l {
+
+		if i >= l {
+			if startToken == ir.TK_UNKNOWN {
+				break
+			}
+
+			if startToken == ir.TK_NORMAL_TEXT {
+				childValue := joinToString(tkns[startIdx:l])
+				child := ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, childValue, nil)
+				children = append(children, child)
+				break
+			}
+
+			startToken = ir.TK_NORMAL_TEXT
+			i = startIdx + 1
+			continue
+		}
+
+		currTkn := tkns[i]
+		currTknDef := ir.ElementDefinitions[currTkn.T]
+
+		if startToken == ir.TK_UNKNOWN {
+			startToken = currTknDef.StartToken
+			startIdx = i
+			i++
+			continue
+		}
+
+		if startToken == ir.TK_NORMAL_TEXT {
+			if currTkn.T != ir.TK_NORMAL_TEXT {
+				childValue := joinToString(tkns[startIdx:i])
+				children = append(children, ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, childValue, nil))
+				startToken = ir.TK_UNKNOWN
+				continue
+			}
+			i++
+			continue
+		}
+
+		startTokenDef := ir.ElementDefinitions[startToken]
+
+		if startTokenDef.EndToken == currTkn.T {
+
+			grandChildren := parseInlineElementsTokens(tkns[startIdx+1 : i])
+
+			hasAllNormalText := true
+			childValue := strings.Builder{}
+			for _, tkn := range grandChildren {
+				if tkn.Def != ir.NORMAL_TEXT_DEFINITION {
+					hasAllNormalText = false
+					break
+				}
+				childValue.WriteString(tkn.V)
+			}
+			if hasAllNormalText {
+				children = append(children, ir.NewMarkDownElement(startTokenDef, childValue.String(), nil))
+			} else {
+				children = append(children, ir.NewMarkDownElement(startTokenDef, "", grandChildren))
+			}
+			startToken = ir.TK_UNKNOWN
+		}
+
+		i++
+	}
+
+	// TODO: Refactor later
+	compactedChildren := make([]*ir.MarkdownElement, 0, len(children))
+	checkpointIdx := 0
+	someChildrensValue := strings.Builder{}
+	for idx := 0; idx <= len(children); idx++ {
+		var child *ir.MarkdownElement = nil
+		if idx < len(children) {
+			child = children[idx]
+		}
+		if child != nil && child.Def == ir.NORMAL_TEXT_DEFINITION {
+			someChildrensValue.WriteString(child.V)
+		} else if checkpointIdx != idx {
+			compactedChildren = append(compactedChildren, ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, someChildrensValue.String(), nil))
+			someChildrensValue = strings.Builder{}
+			checkpointIdx = idx
+			idx--
+		} else if child != nil {
+			compactedChildren = append(compactedChildren, child)
+			checkpointIdx = idx + 1
+		}
+	}
+
+	return compactedChildren
+	// return children
 }
 
 func joinToString(tkns []ir.Token) string {

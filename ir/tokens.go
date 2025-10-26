@@ -28,6 +28,7 @@ const (
 	TK_ESCAPE_CHARACTER TokenType = "ESCAPE_CHARACTER"
 	TK_CHECKED_BOX      TokenType = "CHECKED_BOX"
 	TK_UNCHECKED_BOX    TokenType = "UNCHECKED_BOX"
+	TK_UNKNOWN          TokenType = "UNKNOWN"
 )
 
 type Token struct {

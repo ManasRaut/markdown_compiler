@@ -147,9 +147,9 @@ func Test_parseAllBlockElements(t *testing.T) {
 				{T: ir.TK_STRIKETHROUGH, V: "~~"},
 				{T: ir.TK_NORMAL_TEXT, V: "Also has "},
 				{T: ir.TK_STRIKETHROUGH, V: "~~"},
-				{T: ir.TK_NORMAL_TEXT, V: "bold"},
+				{T: ir.TK_BOLD, V: "**"},
 				{T: ir.TK_NORMAL_TEXT, V: " nested strikethought and bold "},
-				{T: ir.TK_NORMAL_TEXT, V: "bold"},
+				{T: ir.TK_BOLD, V: "**"},
 				{T: ir.TK_STRIKETHROUGH, V: "~~"},
 				{T: ir.TK_NORMAL_TEXT, V: "."},
 			},
@@ -169,9 +169,9 @@ func Test_parseAllBlockElements(t *testing.T) {
 					{T: ir.TK_STRIKETHROUGH, V: "~~"},
 					{T: ir.TK_NORMAL_TEXT, V: "Also has "},
 					{T: ir.TK_STRIKETHROUGH, V: "~~"},
-					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_BOLD, V: "**"},
 					{T: ir.TK_NORMAL_TEXT, V: " nested strikethought and bold "},
-					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_BOLD, V: "**"},
 					{T: ir.TK_STRIKETHROUGH, V: "~~"},
 					{T: ir.TK_NORMAL_TEXT, V: "."},
 				},
@@ -276,7 +276,9 @@ func Test_parseInlineElements(t *testing.T) {
 			name: "Bold in normal text",
 			e: unFinishedElement{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{
 				{T: ir.TK_NORMAL_TEXT, V: "This is a "},
-				{T: ir.TK_BOLD, V: "BOLD"},
+				{T: ir.TK_BOLD, V: "**"},
+				{T: ir.TK_NORMAL_TEXT, V: "BOLD"},
+				{T: ir.TK_BOLD, V: "**"},
 				{T: ir.TK_NORMAL_TEXT, V: " text."}}},
 			want: []*ir.MarkdownElement{
 				ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "", []*ir.MarkdownElement{
@@ -284,6 +286,132 @@ func Test_parseInlineElements(t *testing.T) {
 					ir.NewMarkDownElement(ir.BOLD_DEFINITION, "BOLD", nil),
 					ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, " text.", nil),
 				})},
+		},
+		{
+			name: "Bold and italic with no ending and combined and consecutive normal text",
+			e: unFinishedElement{
+				Def: ir.NORMAL_TEXT_DEFINITION,
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This text "},
+					{T: ir.TK_NORMAL_TEXT, V: "contains a "},
+					{T: ir.TK_BOLD_AND_ITALIC, V: "***"},
+					{T: ir.TK_NORMAL_TEXT, V: "Italic and Bold "},
+					{T: ir.TK_BOLD_AND_ITALIC, V: "***"},
+					{T: ir.TK_NORMAL_TEXT, V: "text with "},
+					{T: ir.TK_BOLD_AND_ITALIC, V: "***"},
+					{T: ir.TK_NORMAL_TEXT, V: " no ending."},
+				},
+			},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(
+					ir.NORMAL_TEXT_DEFINITION,
+					"",
+					[]*ir.MarkdownElement{
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This text contains a ", nil),
+						ir.NewMarkDownElement(ir.BOLD_AND_ITALIC_DEFINITION, "Italic and Bold ", nil),
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "text with *** no ending.", nil),
+					},
+				),
+			},
+		},
+		{
+			name: "Unfinished emphasis text",
+			e: unFinishedElement{
+				Def: ir.HEADING_1_DEFINITION,
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This text "},
+					{T: ir.TK_EMPHASIS, V: "`"},
+					{T: ir.TK_NORMAL_TEXT, V: " incomplete emphasis text."},
+				},
+			},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(
+					ir.HEADING_1_DEFINITION,
+					"",
+					[]*ir.MarkdownElement{
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This text ` incomplete emphasis text.", nil),
+					},
+				),
+			},
+		},
+		{
+			name: "Multiple nested inline elements combined",
+			e: unFinishedElement{
+				Def: ir.NORMAL_TEXT_DEFINITION,
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This paragraph contains an "},
+					{T: ir.TK_ITALIC, V: "*"},
+					{T: ir.TK_NORMAL_TEXT, V: "italic "},
+					{T: ir.TK_ITALIC, V: "*"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_NORMAL_TEXT, V: " and bolder"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: " and "},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: " strikethourgh text."},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "Also has "},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "a "},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: "double "},
+					{T: ir.TK_NORMAL_TEXT, V: "nested strikethought and bold "},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: "and again bold "},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: "."},
+				},
+			},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(
+					ir.NORMAL_TEXT_DEFINITION,
+					"",
+					[]*ir.MarkdownElement{
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This paragraph contains an ", nil),
+						ir.NewMarkDownElement(ir.ITALIC_DEFINITION, "italic ", nil),
+						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold and bolder", nil),
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, " and ", nil),
+						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, " strikethourgh text.", nil),
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "Also has ", nil),
+						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, "", []*ir.MarkdownElement{
+							ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "a ", nil),
+							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "double nested strikethought and bold ", nil),
+							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "and again bold ", nil),
+						}),
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, ".", nil),
+					},
+				),
+			},
+		},
+		{
+			name: "Striketgrough with no end but proper bold after it",
+			e: unFinishedElement{
+				Def: ir.BLOCK_QUOTE_DEFINITION,
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This paragraph contains a "},
+					{T: ir.TK_STRIKETHROUGH, V: "~~"},
+					{T: ir.TK_NORMAL_TEXT, V: " incomplete strikethourgh "},
+					{T: ir.TK_NORMAL_TEXT, V: "but have a complete "},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: "bold"},
+					{T: ir.TK_BOLD, V: "**"},
+					{T: ir.TK_NORMAL_TEXT, V: " after it."},
+				},
+			},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(
+					ir.BLOCK_QUOTE_DEFINITION,
+					"",
+					[]*ir.MarkdownElement{
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "This paragraph contains a ~~ incomplete strikethourgh but have a complete ", nil),
+						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold", nil),
+						ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, " after it.", nil),
+					},
+				),
+			},
 		},
 	}
 	for _, tt := range tests {
@@ -301,7 +429,7 @@ func deepCompare(w *ir.MarkdownElement, g *ir.MarkdownElement) bool {
 	if w == nil && g == nil {
 		return true
 	}
-	if (w == nil && g != nil) || (w != nil && g == nil) || (w.V != g.V) {
+	if (w == nil && g != nil) || (w != nil && g == nil) || (w.V != g.V) || len(w.C) != len(g.C) {
 		return false
 	}
 	if w.C == nil && g.C == nil {

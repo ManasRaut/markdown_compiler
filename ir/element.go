@@ -74,13 +74,14 @@ func (m MarkdownElement) String() string {
 		for _, c := range m.C {
 			if c != nil {
 				b.WriteString(c.String())
-				b.WriteString(",")
+				b.WriteString(", ")
 			}
 		}
 		b.WriteString("]")
 		childsString = b.String()
 	}
-	return fmt.Sprintf("%s::%s(`%s`,`%s`)", m.Def.T, m.Id, m.V, childsString)
+	// return fmt.Sprintf("%s::%s(`%s`,`%s`)", m.Def.T, m.Id, m.V, childsString)
+	return fmt.Sprintf("%s(`%s`,`%s`)", m.Def.T, m.V, childsString)
 }
 
 func NewMarkDownElement(Def ElementDefinition, V string, C []*MarkdownElement) *MarkdownElement {
