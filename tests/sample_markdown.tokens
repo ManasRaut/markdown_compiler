@@ -1,0 +1,35 @@
+HEADING_1 # <<%>>NORMAL_TEXT Sample markdown
+
+NORMAL_TEXT This document contains sample markdown to test the markdown compiler implementation. 
+
+NORMAL_TEXT There will be 2 corresponding files containing expected output of each compilation step:
+LIST_SEQUENCE 1. <<%>>EMPHASIS `<<%>>NORMAL_TEXT sample_markdown.tokens.json<<%>>EMPHASIS `<<%>>NORMAL_TEXT  for lexer output
+LIST_SEQUENCE 2. <<%>>EMPHASIS `<<%>>NORMAL_TEXT sample_markdown.elements.json<<%>>EMPHASIS `<<%>>NORMAL_TEXT  for parser output
+
+NORMAL_TEXT The format of each output is given below.
+
+HEADING_2 ## <<%>>NORMAL_TEXT sample_markdown.tokens.json
+
+NORMAL_TEXT Each token will be seperated by <<%>>BOLD **<<%>>NORMAL_TEXT << % >><<%>>BOLD **<<%>>NORMAL_TEXT .
+NORMAL_TEXT First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value
+
+HEADING_2 ## <<%>>NORMAL_TEXT sample_markdown.elements.json
+
+CODE_BLOCK ```
+NORMAL_TEXT [
+NORMAL_TEXT     {
+NORMAL_TEXT         DefName string
+NORMAL_TEXT         V   string
+NORMAL_TEXT         C   []<<%>>ITALIC *<<%>>NORMAL_TEXT self
+NORMAL_TEXT     }
+NORMAL_TEXT ]
+CODE_BLOCK ```
+
+HORIZONTAL_LINE -----
+
+HEADING_2 ## <<%>>NORMAL_TEXT Elements covered
+
+CHECKED_BOX [.]<<%>>NORMAL_TEXT  Headings
+UNCHECKED_BOX [ ]<<%>>NORMAL_TEXT  Checkboxes
+
+BLOCK_QUOTE > <<%>>NORMAL_TEXT Note: This document is in progress

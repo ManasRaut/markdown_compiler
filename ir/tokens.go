@@ -1,6 +1,9 @@
 package ir
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type TokenType string
 
@@ -37,9 +40,66 @@ type Token struct {
 }
 
 func (t Token) String() string {
-	return fmt.Sprintf("%v", t.T)
+	return fmt.Sprintf("%v(%s)", t.T, escape(t.V))
 }
 
 func (a *Token) Equal(b *Token) bool {
 	return a.T == b.T && a.V == b.V
+}
+
+func escape(v string) string {
+	return strings.ReplaceAll(strings.ReplaceAll(v, "\n", "\\n"), "\t", "\\t")
+}
+
+func GetTokentype(v string) TokenType {
+	switch v {
+	case "HEADING_1":
+		return TK_HEADING_1
+	case "HEADING_2":
+		return TK_HEADING_2
+	case "HEADING_3":
+		return TK_HEADING_3
+	case "HEADING_4":
+		return TK_HEADING_4
+	case "HEADING_5":
+		return TK_HEADING_5
+	case "HEADING_6":
+		return TK_HEADING_6
+	case "NORMAL_TEXT":
+		return TK_NORMAL_TEXT
+	case "LINE_BREAK":
+		return TK_LINE_BREAK
+	case "HORIZONTAL_LINE":
+		return TK_HORIZONTAL_LINE
+	case "BLOCK_QUOTE":
+		return TK_BLOCK_QUOTE
+	case "BULLET_POINT":
+		return TK_BULLET_POINT
+	case "LIST_SEQUENCE":
+		return TK_LIST_SEQUENCE
+	case "CODE_BLOCK":
+		return TK_CODE_BLOCK
+	case "IMAGE":
+		return TK_IMAGE
+	case "BOLD":
+		return TK_BOLD
+	case "ITALIC":
+		return TK_ITALIC
+	case "BOLD_AND_ITALIC":
+		return TK_BOLD_AND_ITALIC
+	case "STRIKETHROUGH":
+		return TK_STRIKETHROUGH
+	case "EMPHASIS":
+		return TK_EMPHASIS
+	case "HYPER_LINK":
+		return TK_HYPER_LINK
+	case "ESCAPE_CHARACTER":
+		return TK_ESCAPE_CHARACTER
+	case "CHECKED_BOX":
+		return TK_CHECKED_BOX
+	case "UNCHECKED_BOX":
+		return TK_UNCHECKED_BOX
+	default:
+		return TK_UNKNOWN
+	}
 }

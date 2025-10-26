@@ -21,7 +21,7 @@ func main() {
 	tokens := lex.Parse()
 
 	printTokens(tokens)
-	fmt.Println("\n============================\n")
+	fmt.Println("\n============================")
 
 	psr := parser.NewParser(tokens)
 
