@@ -56,10 +56,11 @@ const (
 // ************************************************************
 
 type MarkdownElement struct {
-	Id  string
-	Def ElementDefinition
-	V   string
-	C   []*MarkdownElement
+	Id       string
+	Def      ElementDefinition
+	V        string
+	C        []*MarkdownElement
+	Metadata string
 }
 
 func (a *MarkdownElement) Equal(b *MarkdownElement) bool {

@@ -7,8 +7,9 @@ import (
 )
 
 type unFinishedElement struct {
-	Def ir.ElementDefinition
-	V   []ir.Token
+	Def      ir.ElementDefinition
+	Metadata string
+	V        []ir.Token
 }
 
 type Parser struct {
@@ -23,7 +24,9 @@ func (p *Parser) GetElements() []*ir.MarkdownElement {
 func (p *Parser) Parse() error {
 	blkElems := parseBlockElements(p.tks)
 	for _, el := range blkElems {
-		p.elms = append(p.elms, parseInlineElements(&el))
+		parsedElement := parseInlineElements(&el)
+		parsedElement.Metadata = el.Metadata
+		p.elms = append(p.elms, parsedElement)
 	}
 	return nil
 }
@@ -90,16 +93,18 @@ func parseAllBlockElements(i int, tkns []ir.Token, def ir.ElementDefinition) (un
 		s--
 	}
 	b := unFinishedElement{
-		Def: def,
-		V:   tkns[s:j],
+		Def:      def,
+		V:        tkns[s:j],
+		Metadata: tkns[i].V,
 	}
 	return b, nextIndex
 }
 
 func parseSelfStandingElements(i int, tkns []ir.Token, def ir.ElementDefinition) (unFinishedElement, int) {
 	b := unFinishedElement{
-		Def: def,
-		V:   []ir.Token{},
+		Def:      def,
+		V:        []ir.Token{},
+		Metadata: tkns[i].V,
 	}
 	return b, i + 1
 }
@@ -232,6 +237,6 @@ func joinToString(tkns []ir.Token) string {
 func NewParser(tks []ir.Token) *Parser {
 	return &Parser{
 		tks:  tks,
-		elms: make([]*ir.MarkdownElement, len(tks)),
+		elms: make([]*ir.MarkdownElement, 0),
 	}
 }

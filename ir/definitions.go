@@ -71,6 +71,20 @@ var NORMAL_TEXT_DEFINITION = ElementDefinition{
 	Category:    CATEGORY_BLOCK,
 	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
 }
+var CHECKED_BOX_DEFINITION = ElementDefinition{
+	T:           EL_CHECKED_BOX,
+	StartToken:  TK_CHECKED_BOX,
+	EndToken:    TK_LINE_BREAK,
+	Category:    CATEGORY_BLOCK,
+	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
+}
+var UNCHECKED_BOX_DEFINITION = ElementDefinition{
+	T:           EL_UNCHECKED_BOX,
+	StartToken:  TK_UNCHECKED_BOX,
+	EndToken:    TK_LINE_BREAK,
+	Category:    CATEGORY_BLOCK,
+	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
+}
 
 // ---------------------- Multi Line Block elements ----------------------
 var CODE_BLOCK_DEFINITION = ElementDefinition{
@@ -83,7 +97,7 @@ var CODE_BLOCK_DEFINITION = ElementDefinition{
 var BLOCK_QUOTE_DEFINITION = ElementDefinition{
 	T:           EL_BLOCK_QUOTE,
 	StartToken:  TK_BLOCK_QUOTE,
-	EndToken:    TK_BLOCK_QUOTE,
+	EndToken:    TK_LINE_BREAK,
 	Category:    CATEGORY_BLOCK,
 	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
 }
@@ -112,20 +126,22 @@ var IMAGE_DEFINITION = ElementDefinition{
 }
 
 // ---------------------- Inline elements ----------------------
-var CHECKED_BOX_DEFINITION = ElementDefinition{
-	T:           EL_CHECKED_BOX,
-	StartToken:  TK_CHECKED_BOX,
-	EndToken:    TK_CHECKED_BOX,
-	Category:    CATEGORY_INLINE,
-	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
-}
-var UNCHECKED_BOX_DEFINITION = ElementDefinition{
-	T:           EL_UNCHECKED_BOX,
-	StartToken:  TK_UNCHECKED_BOX,
-	EndToken:    TK_UNCHECKED_BOX,
-	Category:    CATEGORY_INLINE,
-	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
-}
+//
+//	var CHECKED_BOX_DEFINITION = ElementDefinition{
+//		T:           EL_CHECKED_BOX,
+//		StartToken:  TK_CHECKED_BOX,
+//		EndToken:    TK_CHECKED_BOX,
+//		Category:    CATEGORY_INLINE,
+//		ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
+//	}
+//
+//	var UNCHECKED_BOX_DEFINITION = ElementDefinition{
+//		T:           EL_UNCHECKED_BOX,
+//		StartToken:  TK_UNCHECKED_BOX,
+//		EndToken:    TK_UNCHECKED_BOX,
+//		Category:    CATEGORY_INLINE,
+//		ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
+//	}
 var BOLD_AND_ITALIC_DEFINITION = ElementDefinition{
 	T:           EL_BOLD_AND_ITALIC,
 	StartToken:  TK_BOLD_AND_ITALIC,
@@ -180,6 +196,8 @@ var ElementDefinitions map[TokenType]ElementDefinition = map[TokenType]ElementDe
 	TK_BULLET_POINT:  BULLET_POINT_DEFINITION,
 	TK_LIST_SEQUENCE: LIST_SEQUENCE_DEFINITION,
 	TK_NORMAL_TEXT:   NORMAL_TEXT_DEFINITION,
+	TK_CHECKED_BOX:   CHECKED_BOX_DEFINITION,
+	TK_UNCHECKED_BOX: UNCHECKED_BOX_DEFINITION,
 	// ---------------------- Multi Line Block elements ----------------------
 	TK_CODE_BLOCK:  CODE_BLOCK_DEFINITION,
 	TK_BLOCK_QUOTE: BLOCK_QUOTE_DEFINITION,
@@ -188,8 +206,8 @@ var ElementDefinitions map[TokenType]ElementDefinition = map[TokenType]ElementDe
 	TK_HORIZONTAL_LINE: HORIZONTAL_LINE_DEFINITION,
 	TK_IMAGE:           IMAGE_DEFINITION,
 	// ---------------------- Inline elements ----------------------
-	TK_CHECKED_BOX:      CHECKED_BOX_DEFINITION,
-	TK_UNCHECKED_BOX:    UNCHECKED_BOX_DEFINITION,
+	// TK_CHECKED_BOX:      CHECKED_BOX_DEFINITION,
+	// TK_UNCHECKED_BOX:    UNCHECKED_BOX_DEFINITION,
 	TK_BOLD_AND_ITALIC:  BOLD_AND_ITALIC_DEFINITION,
 	TK_BOLD:             BOLD_DEFINITION,
 	TK_ITALIC:           ITALIC_DEFINITION,

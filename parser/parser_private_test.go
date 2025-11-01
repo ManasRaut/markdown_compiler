@@ -90,6 +90,18 @@ func Test_parseAllBlockElements(t *testing.T) {
 			wantI: 2,
 		},
 		{
+			name: "List sequence",
+			tkns: []ir.Token{{T: ir.TK_LIST_SEQUENCE, V: "1. "}, {T: ir.TK_NORMAL_TEXT, V: "This is a ordered list item"}},
+			wantElems: unFinishedElement{
+				Def:      ir.LIST_SEQUENCE_DEFINITION,
+				Metadata: "1. ",
+				V: []ir.Token{
+					{T: ir.TK_NORMAL_TEXT, V: "This is a ordered list item"},
+				},
+			},
+			wantI: 2,
+		},
+		{
 			name: "Heading 1 with line break",
 			tkns: []ir.Token{{T: ir.TK_HEADING_1, V: "# "}, {T: ir.TK_NORMAL_TEXT, V: "This is heading 1"}, {T: ir.TK_LINE_BREAK, V: "\n"}},
 			wantElems: unFinishedElement{

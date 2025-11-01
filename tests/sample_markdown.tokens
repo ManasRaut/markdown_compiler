@@ -33,3 +33,5 @@ CHECKED_BOX [.]<<%>>NORMAL_TEXT  Headings
 UNCHECKED_BOX [ ]<<%>>NORMAL_TEXT  Checkboxes
 
 BLOCK_QUOTE > <<%>>NORMAL_TEXT Note: This document is in progress
+BLOCK_QUOTE > <<%>>NORMAL_TEXT Hello too
+BLOCK_QUOTE > <<%>>BLOCK_QUOTE > <<%>>NORMAL_TEXT Nested hehe

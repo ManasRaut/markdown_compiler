@@ -1,63 +1,356 @@
 [
     {
-        "name":"HEADING_1",
-        "value": "Sample markdown",
-        "children": null
-    },
-    {
-        "name":"LINE_BREAK",
-        "value": "\n",
-        "children": null
-    },
-    {
-        "name":"LINE_BREAK",
-        "value": "\n",
-        "children": null
-    },
-    {
-        "name":"NORMAL_TEXT",
+        "name": "HEADING_1",
         "value": "",
         "children": [
             {
-                "name":"NORMAL_TEXT",
-                "value": "This document contains sample markdown to test the markdown compiler implementation. ",
+                "name": "NORMAL_TEXT",
+                "value": "Sample markdown",
                 "children": null
             }
         ]
-    }
-]
-
-This document contains sample markdown to test the markdown compiler implementation. 
-
-There will be 2 corresponding files containing expected output of each compilation step:
-1. `sample_markdown.tokens.json` for lexer output
-2. `sample_markdown.elements.json` for parser output
-
-The format of each output is given below.
-
-## sample_markdown.tokens.json
-
-Each token will be seperated by **<< % >>**.
-First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value
-
-## sample_markdown.elements.json
-
-```
-[
+    },
     {
-        DefName string
-        V   string
-        C   []*self
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "NORMAL_TEXT",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "This document contains sample markdown to test the markdown compiler implementation. "
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "NORMAL_TEXT",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "There will be 2 corresponding files containing expected output of each compilation step:"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LIST_SEQUENCE",
+        "value": "",
+        "metadata": "1. ",
+        "children": [
+            {
+                "name": "EMPHASIS",
+                "value": "sample_markdown.tokens.json",
+                "children": null
+            },
+            {
+                "name": "NORMAL_TEXT",
+                "value": " for lexer output",
+                "children": null
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LIST_SEQUENCE",
+        "value": "",
+        "metadata": "2. ",
+        "children": [
+            {
+                "name": "EMPHASIS",
+                "value": "sample_markdown.elements.json",
+                "children": null
+            },
+            {
+                "name": "NORMAL_TEXT",
+                "value": " for parser output",
+                "children": null
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "NORMAL_TEXT",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "The format of each output is given below."
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "HEADING_2",
+        "value": "",
+
+        "children": [
+        {"name": "NORMAL_TEXT","value": "sample_markdown.tokens.json", "children": null}]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "NORMAL_TEXT",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "value": "Each token will be seperated by ",
+                "children": null
+            },
+            {
+                "name": "BOLD",
+                "value": "<< % >>",
+                "children": null
+            },
+            {
+                "name": "NORMAL_TEXT",
+                "value": ".",
+                "children": null
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "NORMAL_TEXT",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "HEADING_2",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "sample_markdown.elements.json"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "CODE_BLOCK",
+        "value": "\n[\n    {\n        DefName string\n        V   string\n        C   []*self\n    }\n]\n",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "HORIZONTAL_LINE",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "HEADING_2",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "Elements covered"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "CHECKED_BOX",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": " Headings"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "UNCHECKED_BOX",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": " Checkboxes"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "BLOCK_QUOTE",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "Note: This document is in progress"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "BLOCK_QUOTE",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "Hello too"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "BLOCK_QUOTE",
+        "value": "",
+        "children": [
+            {
+                "name": "NORMAL_TEXT",
+                "children": null,
+                "value": "> Nested hehe"
+            }
+        ]
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
+    },
+    {
+        "name": "LINE_BREAK",
+        "value": "",
+        "children": null
     }
 ]
-```
-
------
-
-## Elements covered
-
-[.] Headings
-[ ] Checkboxes
-
-> Note: This document is in progress
-
