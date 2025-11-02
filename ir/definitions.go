@@ -156,6 +156,13 @@ var BOLD_DEFINITION = ElementDefinition{
 	Category:    CATEGORY_INLINE,
 	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
 }
+var UNDERLINE_DEFINITION = ElementDefinition{
+	T:           EL_UNDERLINE,
+	StartToken:  TK_UNDERLINE,
+	EndToken:    TK_UNDERLINE,
+	Category:    CATEGORY_INLINE,
+	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
+}
 var ITALIC_DEFINITION = ElementDefinition{
 	T:           EL_ITALIC,
 	StartToken:  TK_ITALIC,
@@ -209,6 +216,7 @@ var ElementDefinitions map[TokenType]ElementDefinition = map[TokenType]ElementDe
 	// TK_CHECKED_BOX:      CHECKED_BOX_DEFINITION,
 	// TK_UNCHECKED_BOX:    UNCHECKED_BOX_DEFINITION,
 	TK_BOLD_AND_ITALIC:  BOLD_AND_ITALIC_DEFINITION,
+	TK_UNDERLINE:        UNDERLINE_DEFINITION,
 	TK_BOLD:             BOLD_DEFINITION,
 	TK_ITALIC:           ITALIC_DEFINITION,
 	TK_EMPHASIS:         EMPHASIS_DEFINITION,

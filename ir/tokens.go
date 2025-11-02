@@ -22,6 +22,7 @@ const (
 	TK_LIST_SEQUENCE    TokenType = "LIST_SEQUENCE"
 	TK_CODE_BLOCK       TokenType = "CODE_BLOCK"
 	TK_IMAGE            TokenType = "IMAGE"
+	TK_UNDERLINE        TokenType = "UNDERLINE"
 	TK_BOLD             TokenType = "BOLD"
 	TK_ITALIC           TokenType = "ITALIC"
 	TK_BOLD_AND_ITALIC  TokenType = "BOLD_AND_ITALIC"
@@ -99,6 +100,8 @@ func GetTokentype(v string) TokenType {
 		return TK_CHECKED_BOX
 	case "UNCHECKED_BOX":
 		return TK_UNCHECKED_BOX
+	case "UNDERLINE":
+		return TK_UNDERLINE
 	default:
 		return TK_UNKNOWN
 	}

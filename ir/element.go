@@ -25,6 +25,7 @@ const (
 	EL_CODE_BLOCK       ElementName = "CODE_BLOCK"
 	EL_IMAGE            ElementName = "IMAGE"
 	EL_BOLD             ElementName = "BOLD"
+	EL_UNDERLINE        ElementName = "UNDERLINE"
 	EL_ITALIC           ElementName = "ITALIC"
 	EL_BOLD_AND_ITALIC  ElementName = "BOLD_AND_ITALIC"
 	EL_STRIKETHROUGH    ElementName = "STRIKETHROUGH"

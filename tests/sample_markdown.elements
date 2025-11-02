@@ -260,5 +260,15 @@
         {"name": "NORMAL_TEXT", "value": "Heading "}
     ]},
     {"name": "LINE_BREAK", "value": ""},
+    {"name": "LINE_BREAK", "value": ""},
+    {"name": "NORMAL_TEXT", "value": "", "children": [
+        {"name": "NORMAL_TEXT", "value": "A "},
+        {"name": "UNDERLINE", "value": "underlined"},
+        {"name": "NORMAL_TEXT", "value": " element and a nested "},
+        {"name": "UNDERLINE", "value": "", "children": [
+            {"name": "ITALIC", "value": "underline"}
+        ]}
+    ]},
+    {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""}
 ]

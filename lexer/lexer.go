@@ -3,6 +3,7 @@ package lexer
 import (
 	_ "embed"
 	"regexp"
+	"slices"
 
 	"github.com/ManasRaut/lexe/ir"
 )
@@ -34,6 +35,7 @@ func InitLexer(source string) *Lexer {
 			{tType: ir.TK_IMAGE, regex: regexp.MustCompile(`^!\[.+\]\(.+\)`), handler: commonHandler},
 			{tType: ir.TK_CHECKED_BOX, regex: regexp.MustCompile(`^\[\.\]`), handler: commonHandler},
 			{tType: ir.TK_UNCHECKED_BOX, regex: regexp.MustCompile(`^\[ \]`), handler: commonHandler},
+			{tType: ir.TK_UNDERLINE, regex: regexp.MustCompile(`^__`), handler: commonHandler},
 			{tType: ir.TK_BOLD_AND_ITALIC, regex: regexp.MustCompile(`^\*{3}`), handler: commonHandler},
 			{tType: ir.TK_BOLD, regex: regexp.MustCompile(`^\*{2}`), handler: commonHandler},
 			{tType: ir.TK_ITALIC, regex: regexp.MustCompile(`^\*{1}`), handler: commonHandler},
@@ -50,7 +52,7 @@ func InitLexer(source string) *Lexer {
 			{tType: ir.TK_LINE_BREAK, regex: regexp.MustCompile("^\n"), handler: commonHandler},
 			// {tType: NORMAL_TEXT, regex: regexp.MustCompile(`.+`), handler: textHandler},
 			// {tType: NORMAL_TEXT, regex: regexp.MustCompile(`(.+?)[~~,\\,` + "`" + `,\*{3,3},\*{2,2},\*{1,1}]+`), handler: textHandler},
-			{tType: ir.TK_NORMAL_TEXT, regex: regexp.MustCompile(`^[^\\~` + "`" + `*\r\n]+`), handler: textHandler},
+			{tType: ir.TK_NORMAL_TEXT, regex: regexp.MustCompile(`^[^\\~_` + "`" + `*\r\n]+`), handler: textHandler},
 		},
 	}
 }
@@ -71,17 +73,40 @@ func (lex *Lexer) Parse() []ir.Token {
 
 	// TODO: in infinite because of inline matching. FIX IT!!!
 	for !lex.isEnd() {
+		currSource := lex.next()
+		tokenMatched := false
 		for _, matcher := range lex.matchers {
-			currSource := lex.next()
 			loc := matcher.regex.FindStringIndex(currSource)
 			if loc != nil {
 				value := currSource[loc[0]:loc[1]]
 				token := matcher.handler(matcher.tType, value)
 				lex.tokens = append(lex.tokens, token)
 				lex.move(len(value))
+				tokenMatched = true
 				break
 			}
 		}
+
+		if tokenMatched {
+			// Combine any consecutive normal texts
+			tokenCount := len(lex.tokens)
+			i := tokenCount - 1
+			combinedString := ""
+			for i >= 0 && lex.tokens[i].T == ir.TK_NORMAL_TEXT {
+				combinedString = lex.tokens[i].V + combinedString
+				i--
+			}
+			if tokenCount-i-1 > 1 {
+				lex.tokens[i+1].V = combinedString
+				lex.tokens = slices.Delete(lex.tokens, i+2, tokenCount)
+			}
+			continue
+		}
+
+		// If no matcher matched , even normal text then get only the first character as a normal text
+		// To prevent a infinite loop
+		lex.tokens = append(lex.tokens, textHandler(ir.TK_NORMAL_TEXT, currSource[0:1]))
+		lex.move(1)
 	}
 
 	return lex.tokens

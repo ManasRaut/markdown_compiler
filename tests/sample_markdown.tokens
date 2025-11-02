@@ -57,3 +57,5 @@ HEADING_5 ##### <<%>>NORMAL_TEXT Heading 5
 BLOCK_QUOTE > <<%>>BOLD **<<%>>NORMAL_TEXT  kbjkbafe <<%>>BOLD **
 
 HEADING_6 ###### <<%>>NORMAL_TEXT Heading 
+
+NORMAL_TEXT A <<%>>UNDERLINE __<<%>>NORMAL_TEXT underlined<<%>>UNDERLINE __<<%>>NORMAL_TEXT  element and a nested <<%>>UNDERLINE __<<%>>ITALIC *<<%>>NORMAL_TEXT underline<<%>>ITALIC *<<%>>UNDERLINE __

@@ -279,6 +279,15 @@ func Test_parseInlineElements(t *testing.T) {
 				ir.NewMarkDownElement(ir.IMAGE_DEFINITION, `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png")`, nil)},
 		},
 		{
+			name: "Underline",
+			e:    unFinishedElement{Def: ir.NORMAL_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_UNDERLINE, V: "__"}, {T: ir.TK_NORMAL_TEXT, V: "Underline"}, {T: ir.TK_UNDERLINE, V: "__"}, {T: ir.TK_NORMAL_TEXT, V: " element"}}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, "", []*ir.MarkdownElement{
+					ir.NewMarkDownElement(ir.UNDERLINE_DEFINITION, "Underline", nil),
+					ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, " element", nil),
+				})},
+		},
+		{
 			name: "CodeBlock",
 			e:    unFinishedElement{Def: ir.CODE_BLOCK_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is a heading 1"}}},
 			want: []*ir.MarkdownElement{
