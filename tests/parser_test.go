@@ -32,15 +32,15 @@ func TestParser(t *testing.T) {
 			gotElems := psr.GetElements()
 			wantElems := tt.wantElements
 
-			if len(gotElems) != len(wantElems) {
-				t.Logf("parser.Parse(): Got %d elements at root, want %d elements at root", len(gotElems), len(wantElems))
-			}
 			for i := range wantElems {
 				got := gotElems[i]
 				want := wantElems[i]
 				if !deepCompare(got, want) {
 					t.Fatalf("parser.Parse(): \nGot Elements:%v\nWant Elements:%v\n\nWhere got:\n\t%v\nwant:\n\t%v\n", got, want, gotElems, wantElems)
 				}
+			}
+			if len(gotElems) != len(wantElems) {
+				t.Fatalf("parser.Parse(): Got %d elements at root, want %d elements at root", len(gotElems), len(wantElems))
 			}
 		})
 	}

@@ -35,3 +35,25 @@ UNCHECKED_BOX [ ]<<%>>NORMAL_TEXT  Checkboxes
 BLOCK_QUOTE > <<%>>NORMAL_TEXT Note: This document is in progress
 BLOCK_QUOTE > <<%>>NORMAL_TEXT Hello too
 BLOCK_QUOTE > <<%>>BLOCK_QUOTE > <<%>>NORMAL_TEXT Nested hehe
+
+
+HEADING_3 ### <<%>>NORMAL_TEXT Inline elements
+
+NORMAL_TEXT This sentence contains a <<%>>BOLD **<<%>>NORMAL_TEXT Bold<<%>>BOLD **<<%>>NORMAL_TEXT , and <<%>>ITALIC *<<%>>NORMAL_TEXT Italic<<%>>ITALIC *<<%>>NORMAL_TEXT  and a <<%>>BOLD_AND_ITALIC ***<<%>>NORMAL_TEXT Bold and italic<<%>>BOLD_AND_ITALIC ***<<%>>NORMAL_TEXT  <<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT strikethrough also<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT .
+NORMAL_TEXT Trying a <<%>>BOLD **<<%>>NORMAL_TEXT Bold<<%>>BOLD **<<%>>NORMAL_TEXT  <<%>>ITALIC *<<%>>NORMAL_TEXT Italic<<%>>ITALIC *<<%>>NORMAL_TEXT  and <<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>NORMAL_TEXT strikethrough with bold<<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT  and <<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT vice versa<<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>NORMAL_TEXT .
+NORMAL_TEXT Deep nested <<%>>BOLD_AND_ITALIC ***<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT italic bold and strikthrough<<%>>STRIKETHROUGH ~~<<%>>BOLD_AND_ITALIC ***
+NORMAL_TEXT Some <<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT italic emphasis<<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT  and <<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT vice versa<<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT . 
+NORMAL_TEXT Multiple <<%>>BOLD **<<%>>NORMAL_TEXT nested <<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT elements<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT  <<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT mdelements<<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT  in one <<%>>ITALIC *<<%>>NORMAL_TEXT parent<<%>>ITALIC *<<%>>NORMAL_TEXT  <<%>>BOLD **<<%>>NORMAL_TEXT  element.
+
+HEADING_4 #### <<%>>ITALIC *<<%>>NORMAL_TEXT Italic Unordered lists<<%>>ITALIC *
+
+NORMAL_TEXT Image: 
+
+BULLET_POINT - <<%>>NORMAL_TEXT item 1 with <<%>>BOLD **<<%>>NORMAL_TEXT bold<<%>>BOLD **
+BULLET_POINT - <<%>>NORMAL_TEXT item 2
+
+HEADING_5 ##### <<%>>NORMAL_TEXT Heading 5
+
+BLOCK_QUOTE > <<%>>BOLD **<<%>>NORMAL_TEXT  kbjkbafe <<%>>BOLD **
+
+HEADING_6 ###### <<%>>NORMAL_TEXT Heading 

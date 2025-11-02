@@ -36,3 +36,25 @@ First continous word in each seperated token will be the token name and rest rem
 > Hello too
 > > Nested hehe
 
+
+### Inline elements
+
+This sentence contains a **Bold**, and *Italic* and a ***Bold and italic*** ~~strikethrough also~~.
+Trying a **Bold** *Italic* and ~~**strikethrough with bold**~~ and **~~vice versa~~**.
+Deep nested ***~~italic bold and strikthrough~~***
+Some *`italic emphasis`* and `*vice versa*`. 
+Multiple **nested ~~elements~~ `*mdelements*` in one *parent* ** element.
+
+#### *Italic Unordered lists*
+
+Image: 
+
+- item 1 with **bold**
+- item 2
+
+##### Heading 5
+
+> ** kbjkbafe **
+
+###### Heading 
+

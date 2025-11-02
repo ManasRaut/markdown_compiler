@@ -122,7 +122,7 @@ var IMAGE_DEFINITION = ElementDefinition{
 	StartToken:  TK_IMAGE,
 	EndToken:    TK_IMAGE,
 	Category:    CATEGORY_SELF_CONTAINED,
-	ContentType: CONTENT_TYPE_NONE,
+	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
 }
 
 // ---------------------- Inline elements ----------------------

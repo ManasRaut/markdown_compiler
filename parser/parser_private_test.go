@@ -273,6 +273,12 @@ func Test_parseInlineElements(t *testing.T) {
 				ir.NewMarkDownElement(ir.HORIZONTAL_LINE_DEFINITION, "", nil)},
 		},
 		{
+			name: "Image",
+			e:    unFinishedElement{Def: ir.IMAGE_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png")`}}},
+			want: []*ir.MarkdownElement{
+				ir.NewMarkDownElement(ir.IMAGE_DEFINITION, `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png")`, nil)},
+		},
+		{
 			name: "CodeBlock",
 			e:    unFinishedElement{Def: ir.CODE_BLOCK_DEFINITION, V: []ir.Token{{T: ir.TK_NORMAL_TEXT, V: "This is a heading 1"}}},
 			want: []*ir.MarkdownElement{
