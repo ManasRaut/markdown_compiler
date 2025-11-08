@@ -14,7 +14,7 @@ const (
 	TK_HEADING_4        TokenType = "HEADING_4"
 	TK_HEADING_5        TokenType = "HEADING_5"
 	TK_HEADING_6        TokenType = "HEADING_6"
-	TK_NORMAL_TEXT      TokenType = "NORMAL_TEXT"
+	TK_PLAIN_TEXT       TokenType = "PLAIN_TEXT"
 	TK_LINE_BREAK       TokenType = "LINE_BREAK"
 	TK_HORIZONTAL_LINE  TokenType = "HORIZONTAL_LINE"
 	TK_BLOCK_QUOTE      TokenType = "BLOCK_QUOTE"
@@ -66,8 +66,8 @@ func GetTokentype(v string) TokenType {
 		return TK_HEADING_5
 	case "HEADING_6":
 		return TK_HEADING_6
-	case "NORMAL_TEXT":
-		return TK_NORMAL_TEXT
+	case "PLAIN_TEXT":
+		return TK_PLAIN_TEXT
 	case "LINE_BREAK":
 		return TK_LINE_BREAK
 	case "HORIZONTAL_LINE":

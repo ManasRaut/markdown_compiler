@@ -3,25 +3,25 @@
         "name": "HEADING_1",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "value": "Sample markdown", "children": null }
+            { "name": "PLAIN_TEXT", "value": "Sample markdown", "children": null }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name": "NORMAL_TEXT",
+        "name": "PLAIN_TEXT",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "This document contains sample markdown to test the markdown compiler implementation. " }
+            { "name": "PLAIN_TEXT", "children": null, "value": "This document contains sample markdown to test the markdown compiler implementation. " }
         ]
     },
    { "name": "LINE_BREAK", "value": "", "children": null },
    { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name": "NORMAL_TEXT",
+        "name": "PLAIN_TEXT",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "There will be 2 corresponding files containing expected output of each compilation step:" }
+            { "name": "PLAIN_TEXT", "children": null, "value": "There will be 2 corresponding files containing expected output of each compilation step:" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -31,7 +31,7 @@
         "metadata": "1. ",
         "children": [
             { "name": "EMPHASIS", "value": "sample_markdown.tokens.json", "children": null },
-            { "name": "NORMAL_TEXT", "value": " for lexer output", "children": null }
+            { "name": "PLAIN_TEXT", "value": " for lexer output", "children": null }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -41,16 +41,16 @@
         "metadata": "2. ",
         "children": [
             { "name": "EMPHASIS", "value": "sample_markdown.elements.json", "children": null },
-            { "name": "NORMAL_TEXT", "value": " for parser output", "children": null }
+            { "name": "PLAIN_TEXT", "value": " for parser output", "children": null }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name": "NORMAL_TEXT",
+        "name": "PLAIN_TEXT",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "The format of each output is given below." }
+            { "name": "PLAIN_TEXT", "children": null, "value": "The format of each output is given below." }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -59,25 +59,25 @@
         "name": "HEADING_2",
         "value": "",
         "children": [
-        {"name": "NORMAL_TEXT","value": "sample_markdown.tokens.json", "children": null}]
+        {"name": "PLAIN_TEXT","value": "sample_markdown.tokens.json", "children": null}]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name": "NORMAL_TEXT",
+        "name": "PLAIN_TEXT",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "value": "Each token will be seperated by ", "children": null },
+            { "name": "PLAIN_TEXT", "value": "Each token will be seperated by ", "children": null },
             { "name": "BOLD", "value": "<< % >>", "children": null },
-            { "name": "NORMAL_TEXT", "value": ".", "children": null }
+            { "name": "PLAIN_TEXT", "value": ".", "children": null }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name": "NORMAL_TEXT",
+        "name": "PLAIN_TEXT",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value" }
+            { "name": "PLAIN_TEXT", "children": null, "value": "First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -86,7 +86,7 @@
         "name": "HEADING_2",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "sample_markdown.elements.json" }
+            { "name": "PLAIN_TEXT", "children": null, "value": "sample_markdown.elements.json" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -105,7 +105,7 @@
         "name": "HEADING_2",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "Elements covered" }
+            { "name": "PLAIN_TEXT", "children": null, "value": "Elements covered" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -114,7 +114,7 @@
         "name": "CHECKED_BOX",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": " Headings" }
+            { "name": "PLAIN_TEXT", "children": null, "value": " Headings" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -122,7 +122,7 @@
         "name": "UNCHECKED_BOX",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": " Checkboxes"
+            { "name": "PLAIN_TEXT", "children": null, "value": " Checkboxes"
             }
         ]
     },
@@ -132,7 +132,7 @@
         "name": "BLOCK_QUOTE",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "Note: This document is in progress" }
+            { "name": "PLAIN_TEXT", "children": null, "value": "Note: This document is in progress" }
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -140,7 +140,7 @@
         "name": "BLOCK_QUOTE",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "Hello too"}
+            { "name": "PLAIN_TEXT", "children": null, "value": "Hello too"}
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
@@ -148,81 +148,81 @@
         "name": "BLOCK_QUOTE",
         "value": "",
         "children": [
-            { "name": "NORMAL_TEXT", "children": null, "value": "> Nested hehe"}
+            { "name": "PLAIN_TEXT", "children": null, "value": "> Nested hehe"}
         ]
     },
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {"name":"HEADING_3", "children": [
-        {"name":"NORMAL_TEXT", "value": "Inline elements"}
+        {"name":"PLAIN_TEXT", "value": "Inline elements"}
     ]},
     { "name": "LINE_BREAK", "value": "", "children": null },
     { "name": "LINE_BREAK", "value": "", "children": null },
     {
-        "name":"NORMAL_TEXT",
+        "name":"PLAIN_TEXT",
         "children": [
-            {"name": "NORMAL_TEXT", "value": "This sentence contains a "},
+            {"name": "PLAIN_TEXT", "value": "This sentence contains a "},
             {"name": "BOLD", "value":"Bold"},
-            {"name": "NORMAL_TEXT", "value": ", and "},
+            {"name": "PLAIN_TEXT", "value": ", and "},
             {"name": "ITALIC", "value": "Italic"},
-            {"name": "NORMAL_TEXT", "value": " and a "},
+            {"name": "PLAIN_TEXT", "value": " and a "},
             {"name": "BOLD_AND_ITALIC", "value": "Bold and italic"},
-            {"name": "NORMAL_TEXT", "value": " "},
+            {"name": "PLAIN_TEXT", "value": " "},
             {"name": "STRIKETHROUGH", "value": "strikethrough also"},
-            {"name": "NORMAL_TEXT", "value": "."}
+            {"name": "PLAIN_TEXT", "value": "."}
         ]
     },
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children":[
-        {"name": "NORMAL_TEXT", "value": "Trying a "},
+    {"name": "PLAIN_TEXT", "value": "", "children":[
+        {"name": "PLAIN_TEXT", "value": "Trying a "},
         {"name": "BOLD", "value": "Bold"},
-        {"name": "NORMAL_TEXT", "value": " "},
+        {"name": "PLAIN_TEXT", "value": " "},
         {"name": "ITALIC", "value": "Italic"},
-        {"name": "NORMAL_TEXT", "value": " and "},
+        {"name": "PLAIN_TEXT", "value": " and "},
         {"name": "STRIKETHROUGH", "value": "", "children": [
                 {"name": "BOLD", "value": "strikethrough with bold"}
         ]},
-        {"name": "NORMAL_TEXT", "value": " and "},
+        {"name": "PLAIN_TEXT", "value": " and "},
         {"name": "BOLD", "value": "", "children":[
             {"name": "STRIKETHROUGH", "value": "vice versa"}
         ]},
-        {"name": "NORMAL_TEXT", "value": "."}
+        {"name": "PLAIN_TEXT", "value": "."}
     ]},
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "Deep nested "},
+    {"name": "PLAIN_TEXT", "value": "", "children": [
+        {"name": "PLAIN_TEXT", "value": "Deep nested "},
         {"name": "BOLD_AND_ITALIC", "value": "", "children":[
             {"name": "STRIKETHROUGH", "value": "italic bold and strikthrough"}
         ] }
     ]},
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children":[
-        {"name": "NORMAL_TEXT", "value": "Some "},
+    {"name": "PLAIN_TEXT", "value": "", "children":[
+        {"name": "PLAIN_TEXT", "value": "Some "},
         {"name": "ITALIC", "value": "", "children": [
             {"name": "EMPHASIS", "value": "italic emphasis"}
         ]},
-        {"name": "NORMAL_TEXT", "value": " and "},
+        {"name": "PLAIN_TEXT", "value": " and "},
         {"name": "EMPHASIS", "value": "", "children":[
             {"name": "ITALIC", "value": "vice versa"}
         ]},
-        {"name": "NORMAL_TEXT", "value": ". "}
+        {"name": "PLAIN_TEXT", "value": ". "}
     ]},
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children":[
-        {"name": "NORMAL_TEXT", "value": "Multiple "},
+    {"name": "PLAIN_TEXT", "value": "", "children":[
+        {"name": "PLAIN_TEXT", "value": "Multiple "},
         {"name": "BOLD", "value": "", "children": [
-            {"name": "NORMAL_TEXT", "value": "nested "},
+            {"name": "PLAIN_TEXT", "value": "nested "},
             {"name": "STRIKETHROUGH", "value": "elements"},
-            {"name": "NORMAL_TEXT", "value": " "},
+            {"name": "PLAIN_TEXT", "value": " "},
             {"name": "EMPHASIS", "value": "", "children": [
                 {"name": "ITALIC", "value": "mdelements"}
             ]},
-            {"name": "NORMAL_TEXT", "value": " in one "},
+            {"name": "PLAIN_TEXT", "value": " in one "},
             {"name": "ITALIC", "value": "parent"},
-            {"name": "NORMAL_TEXT", "value": " "}
+            {"name": "PLAIN_TEXT", "value": " "}
         ]},
-        {"name": "NORMAL_TEXT", "value": " element."}
+        {"name": "PLAIN_TEXT", "value": " element."}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
@@ -231,23 +231,23 @@
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "Image: "}
+    {"name": "PLAIN_TEXT", "value": "", "children": [
+        {"name": "PLAIN_TEXT", "value": "Image: "}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "BULLET_POINT", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "item 1 with "},
+        {"name": "PLAIN_TEXT", "value": "item 1 with "},
         {"name": "BOLD", "value": "bold"}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "BULLET_POINT", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "item 2"}
+        {"name": "PLAIN_TEXT", "value": "item 2"}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "HEADING_5", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "Heading 5"}
+        {"name": "PLAIN_TEXT", "value": "Heading 5"}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
@@ -257,14 +257,14 @@
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "HEADING_6", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "Heading "}
+        {"name": "PLAIN_TEXT", "value": "Heading "}
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
-    {"name": "NORMAL_TEXT", "value": "", "children": [
-        {"name": "NORMAL_TEXT", "value": "A "},
+    {"name": "PLAIN_TEXT", "value": "", "children": [
+        {"name": "PLAIN_TEXT", "value": "A "},
         {"name": "UNDERLINE", "value": "underlined"},
-        {"name": "NORMAL_TEXT", "value": " element and a nested "},
+        {"name": "PLAIN_TEXT", "value": " element and a nested "},
         {"name": "UNDERLINE", "value": "", "children": [
             {"name": "ITALIC", "value": "underline"}
         ]}

@@ -18,18 +18,18 @@ func TestLexer(t *testing.T) {
 			source: "# Heading 1",
 			wantTokens: []ir.Token{
 				{T: ir.TK_HEADING_1, V: "# "},
-				{T: ir.TK_NORMAL_TEXT, V: "Heading 1"},
+				{T: ir.TK_PLAIN_TEXT, V: "Heading 1"},
 			},
 		},
 		{
 			name:   "Underline in middle",
 			source: "A __Underline__ in a line",
 			wantTokens: []ir.Token{
-				{T: ir.TK_NORMAL_TEXT, V: "A "},
+				{T: ir.TK_PLAIN_TEXT, V: "A "},
 				{T: ir.TK_UNDERLINE, V: "__"},
-				{T: ir.TK_NORMAL_TEXT, V: "Underline"},
+				{T: ir.TK_PLAIN_TEXT, V: "Underline"},
 				{T: ir.TK_UNDERLINE, V: "__"},
-				{T: ir.TK_NORMAL_TEXT, V: " in a line"},
+				{T: ir.TK_PLAIN_TEXT, V: " in a line"},
 			},
 		},
 		{
@@ -37,9 +37,9 @@ func TestLexer(t *testing.T) {
 			source: "__Underline__ in a line and a rouge _ underscore",
 			wantTokens: []ir.Token{
 				{T: ir.TK_UNDERLINE, V: "__"},
-				{T: ir.TK_NORMAL_TEXT, V: "Underline"},
+				{T: ir.TK_PLAIN_TEXT, V: "Underline"},
 				{T: ir.TK_UNDERLINE, V: "__"},
-				{T: ir.TK_NORMAL_TEXT, V: " in a line and a rouge _ underscore"},
+				{T: ir.TK_PLAIN_TEXT, V: " in a line and a rouge _ underscore"},
 			},
 		},
 	}

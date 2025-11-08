@@ -52,7 +52,7 @@ func InitLexer(source string) *Lexer {
 			{tType: ir.TK_LINE_BREAK, regex: regexp.MustCompile("^\n"), handler: commonHandler},
 			// {tType: NORMAL_TEXT, regex: regexp.MustCompile(`.+`), handler: textHandler},
 			// {tType: NORMAL_TEXT, regex: regexp.MustCompile(`(.+?)[~~,\\,` + "`" + `,\*{3,3},\*{2,2},\*{1,1}]+`), handler: textHandler},
-			{tType: ir.TK_NORMAL_TEXT, regex: regexp.MustCompile(`^[^\\~_` + "`" + `*\r\n]+`), handler: textHandler},
+			{tType: ir.TK_PLAIN_TEXT, regex: regexp.MustCompile(`^[^\\~_` + "`" + `*\r\n]+`), handler: textHandler},
 		},
 	}
 }
@@ -92,7 +92,7 @@ func (lex *Lexer) Parse() []ir.Token {
 			tokenCount := len(lex.tokens)
 			i := tokenCount - 1
 			combinedString := ""
-			for i >= 0 && lex.tokens[i].T == ir.TK_NORMAL_TEXT {
+			for i >= 0 && lex.tokens[i].T == ir.TK_PLAIN_TEXT {
 				combinedString = lex.tokens[i].V + combinedString
 				i--
 			}
@@ -105,7 +105,7 @@ func (lex *Lexer) Parse() []ir.Token {
 
 		// If no matcher matched , even normal text then get only the first character as a normal text
 		// To prevent a infinite loop
-		lex.tokens = append(lex.tokens, textHandler(ir.TK_NORMAL_TEXT, currSource[0:1]))
+		lex.tokens = append(lex.tokens, textHandler(ir.TK_PLAIN_TEXT, currSource[0:1]))
 		lex.move(1)
 	}
 
@@ -117,5 +117,5 @@ func commonHandler(tType ir.TokenType, value string) ir.Token {
 }
 
 func textHandler(tType ir.TokenType, value string) ir.Token {
-	return ir.Token{T: ir.TK_NORMAL_TEXT, V: value}
+	return ir.Token{T: ir.TK_PLAIN_TEXT, V: value}
 }

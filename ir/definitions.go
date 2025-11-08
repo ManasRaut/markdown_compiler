@@ -64,9 +64,9 @@ var LIST_SEQUENCE_DEFINITION = ElementDefinition{
 	Category:    CATEGORY_BLOCK,
 	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
 }
-var NORMAL_TEXT_DEFINITION = ElementDefinition{
-	T:           EL_NORMAL_TEXT,
-	StartToken:  TK_NORMAL_TEXT,
+var PLAIN_TEXT_DEFINITION = ElementDefinition{
+	T:           EL_PLAIN_TEXT,
+	StartToken:  TK_PLAIN_TEXT,
 	EndToken:    TK_LINE_BREAK,
 	Category:    CATEGORY_BLOCK,
 	ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
@@ -202,7 +202,7 @@ var ElementDefinitions map[TokenType]ElementDefinition = map[TokenType]ElementDe
 	TK_HEADING_6:     HEADING_6_DEFINITION,
 	TK_BULLET_POINT:  BULLET_POINT_DEFINITION,
 	TK_LIST_SEQUENCE: LIST_SEQUENCE_DEFINITION,
-	TK_NORMAL_TEXT:   NORMAL_TEXT_DEFINITION,
+	TK_PLAIN_TEXT:    PLAIN_TEXT_DEFINITION,
 	TK_CHECKED_BOX:   CHECKED_BOX_DEFINITION,
 	TK_UNCHECKED_BOX: UNCHECKED_BOX_DEFINITION,
 	// ---------------------- Multi Line Block elements ----------------------

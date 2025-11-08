@@ -47,9 +47,9 @@ func parseBlockElements(tkns []ir.Token) []unFinishedElement {
 		def := ir.ElementDefinitions[t.T]
 		// Default is normal text
 		el := unFinishedElement{
-			Def: ir.ElementDefinitions[ir.TK_NORMAL_TEXT],
+			Def: ir.ElementDefinitions[ir.TK_PLAIN_TEXT],
 			V: []ir.Token{{
-				T: ir.TK_NORMAL_TEXT, V: t.V,
+				T: ir.TK_PLAIN_TEXT, V: t.V,
 			}},
 		}
 
@@ -81,15 +81,15 @@ func parseAllBlockElements(i int, tkns []ir.Token, def ir.ElementDefinition) (un
 	if def.StartToken == def.EndToken {
 		if j >= l {
 			return unFinishedElement{
-				Def: ir.ElementDefinitions[ir.TK_NORMAL_TEXT],
-				V:   []ir.Token{{T: ir.TK_NORMAL_TEXT, V: tkns[i].V}},
+				Def: ir.ElementDefinitions[ir.TK_PLAIN_TEXT],
+				V:   []ir.Token{{T: ir.TK_PLAIN_TEXT, V: tkns[i].V}},
 			}, i + 1
 		}
 		nextIndex++
 	}
 
 	s := i + 1
-	if def.T == ir.EL_NORMAL_TEXT {
+	if def.T == ir.EL_PLAIN_TEXT {
 		s--
 	}
 	b := unFinishedElement{
@@ -141,14 +141,14 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 				break
 			}
 
-			if startToken == ir.TK_NORMAL_TEXT {
+			if startToken == ir.TK_PLAIN_TEXT {
 				childValue := joinToString(tkns[startIdx:l])
-				child := ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, childValue, nil)
+				child := ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, nil)
 				children = append(children, child)
 				break
 			}
 
-			startToken = ir.TK_NORMAL_TEXT
+			startToken = ir.TK_PLAIN_TEXT
 			i = startIdx + 1
 			continue
 		}
@@ -163,10 +163,10 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 			continue
 		}
 
-		if startToken == ir.TK_NORMAL_TEXT {
-			if currTkn.T != ir.TK_NORMAL_TEXT {
+		if startToken == ir.TK_PLAIN_TEXT {
+			if currTkn.T != ir.TK_PLAIN_TEXT {
 				childValue := joinToString(tkns[startIdx:i])
-				children = append(children, ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, childValue, nil))
+				children = append(children, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, nil))
 				startToken = ir.TK_UNKNOWN
 				continue
 			}
@@ -183,7 +183,7 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 			hasAllNormalText := true
 			childValue := strings.Builder{}
 			for _, tkn := range grandChildren {
-				if tkn.Def != ir.NORMAL_TEXT_DEFINITION {
+				if tkn.Def != ir.PLAIN_TEXT_DEFINITION {
 					hasAllNormalText = false
 					break
 				}
@@ -209,10 +209,10 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 		if idx < len(children) {
 			child = children[idx]
 		}
-		if child != nil && child.Def == ir.NORMAL_TEXT_DEFINITION {
+		if child != nil && child.Def == ir.PLAIN_TEXT_DEFINITION {
 			someChildrensValue.WriteString(child.V)
 		} else if checkpointIdx != idx {
-			compactedChildren = append(compactedChildren, ir.NewMarkDownElement(ir.NORMAL_TEXT_DEFINITION, someChildrensValue.String(), nil))
+			compactedChildren = append(compactedChildren, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, someChildrensValue.String(), nil))
 			someChildrensValue = strings.Builder{}
 			checkpointIdx = idx
 			idx--

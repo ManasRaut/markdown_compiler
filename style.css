@@ -6,6 +6,14 @@ body main * {
     display: inline-block;
 }
 
+li {
+    display: list-item !important;
+} 
+
+ol, ul {
+    margin: 0px
+}
+
 main {
     /* margin: 16px auto;
     padding: 12px;
@@ -27,19 +35,26 @@ hr {
 
 pre {
     background-color: lightgray;
-    padding: 28px 12px 8px 12px;
+    padding: 8px 12px 8px 12px;
     border-radius: 4px;
     position: relative;
     width: 100%;
 }
 pre::after {
-    content: "</>";
+    content: "COPY";
     background-color: darkgray;
-    padding: 2px;
+    padding: 2px 4px;
     border-radius: 4px;
     position: absolute;
     top: 8px;
     right: 8px;
+    cursor: pointer;
+}
+
+@media print {
+    pre::after {
+        display: none;
+    }
 }
 
 blockquote {
@@ -48,15 +63,4 @@ blockquote {
     padding: 8px 8px 8px 24px;
     margin: 0;
     width: 100%;
-}
-
-li::before {
-    content: "";
-    display: inline-block;
-    min-width: 7px;
-    min-height: 7px;
-    margin: auto 8px;
-    transform: translateY(-50%);
-    background-color: black;
-    border-radius: 100%;
 }

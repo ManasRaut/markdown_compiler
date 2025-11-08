@@ -16,7 +16,7 @@ const (
 	EL_HEADING_4        ElementName = "HEADING_4"
 	EL_HEADING_5        ElementName = "HEADING_5"
 	EL_HEADING_6        ElementName = "HEADING_6"
-	EL_NORMAL_TEXT      ElementName = "NORMAL_TEXT"
+	EL_PLAIN_TEXT       ElementName = "PLAIN_TEXT"
 	EL_LINE_BREAK       ElementName = "LINE_BREAK"
 	EL_HORIZONTAL_LINE  ElementName = "HORIZONTAL_LINE"
 	EL_BLOCK_QUOTE      ElementName = "BLOCK_QUOTE"

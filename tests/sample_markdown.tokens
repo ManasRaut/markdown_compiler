@@ -1,61 +1,61 @@
-HEADING_1 # <<%>>NORMAL_TEXT Sample markdown
+HEADING_1 # <<%>>PLAIN_TEXT Sample markdown
 
-NORMAL_TEXT This document contains sample markdown to test the markdown compiler implementation. 
+PLAIN_TEXT This document contains sample markdown to test the markdown compiler implementation. 
 
-NORMAL_TEXT There will be 2 corresponding files containing expected output of each compilation step:
-LIST_SEQUENCE 1. <<%>>EMPHASIS `<<%>>NORMAL_TEXT sample_markdown.tokens.json<<%>>EMPHASIS `<<%>>NORMAL_TEXT  for lexer output
-LIST_SEQUENCE 2. <<%>>EMPHASIS `<<%>>NORMAL_TEXT sample_markdown.elements.json<<%>>EMPHASIS `<<%>>NORMAL_TEXT  for parser output
+PLAIN_TEXT There will be 2 corresponding files containing expected output of each compilation step:
+LIST_SEQUENCE 1. <<%>>EMPHASIS `<<%>>PLAIN_TEXT sample_markdown.tokens.json<<%>>EMPHASIS `<<%>>PLAIN_TEXT  for lexer output
+LIST_SEQUENCE 2. <<%>>EMPHASIS `<<%>>PLAIN_TEXT sample_markdown.elements.json<<%>>EMPHASIS `<<%>>PLAIN_TEXT  for parser output
 
-NORMAL_TEXT The format of each output is given below.
+PLAIN_TEXT The format of each output is given below.
 
-HEADING_2 ## <<%>>NORMAL_TEXT sample_markdown.tokens.json
+HEADING_2 ## <<%>>PLAIN_TEXT sample_markdown.tokens.json
 
-NORMAL_TEXT Each token will be seperated by <<%>>BOLD **<<%>>NORMAL_TEXT << % >><<%>>BOLD **<<%>>NORMAL_TEXT .
-NORMAL_TEXT First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value
+PLAIN_TEXT Each token will be seperated by <<%>>BOLD **<<%>>PLAIN_TEXT << % >><<%>>BOLD **<<%>>PLAIN_TEXT .
+PLAIN_TEXT First continous word in each seperated token will be the token name and rest remaining exlcuding the immediate space is the value
 
-HEADING_2 ## <<%>>NORMAL_TEXT sample_markdown.elements.json
+HEADING_2 ## <<%>>PLAIN_TEXT sample_markdown.elements.json
 
 CODE_BLOCK ```
-NORMAL_TEXT [
-NORMAL_TEXT     {
-NORMAL_TEXT         DefName string
-NORMAL_TEXT         V   string
-NORMAL_TEXT         C   []<<%>>ITALIC *<<%>>NORMAL_TEXT self
-NORMAL_TEXT     }
-NORMAL_TEXT ]
+PLAIN_TEXT [
+PLAIN_TEXT     {
+PLAIN_TEXT         DefName string
+PLAIN_TEXT         V   string
+PLAIN_TEXT         C   []<<%>>ITALIC *<<%>>PLAIN_TEXT self
+PLAIN_TEXT     }
+PLAIN_TEXT ]
 CODE_BLOCK ```
 
 HORIZONTAL_LINE -----
 
-HEADING_2 ## <<%>>NORMAL_TEXT Elements covered
+HEADING_2 ## <<%>>PLAIN_TEXT Elements covered
 
-CHECKED_BOX [.]<<%>>NORMAL_TEXT  Headings
-UNCHECKED_BOX [ ]<<%>>NORMAL_TEXT  Checkboxes
+CHECKED_BOX [.]<<%>>PLAIN_TEXT  Headings
+UNCHECKED_BOX [ ]<<%>>PLAIN_TEXT  Checkboxes
 
-BLOCK_QUOTE > <<%>>NORMAL_TEXT Note: This document is in progress
-BLOCK_QUOTE > <<%>>NORMAL_TEXT Hello too
-BLOCK_QUOTE > <<%>>BLOCK_QUOTE > <<%>>NORMAL_TEXT Nested hehe
+BLOCK_QUOTE > <<%>>PLAIN_TEXT Note: This document is in progress
+BLOCK_QUOTE > <<%>>PLAIN_TEXT Hello too
+BLOCK_QUOTE > <<%>>BLOCK_QUOTE > <<%>>PLAIN_TEXT Nested hehe
 
 
-HEADING_3 ### <<%>>NORMAL_TEXT Inline elements
+HEADING_3 ### <<%>>PLAIN_TEXT Inline elements
 
-NORMAL_TEXT This sentence contains a <<%>>BOLD **<<%>>NORMAL_TEXT Bold<<%>>BOLD **<<%>>NORMAL_TEXT , and <<%>>ITALIC *<<%>>NORMAL_TEXT Italic<<%>>ITALIC *<<%>>NORMAL_TEXT  and a <<%>>BOLD_AND_ITALIC ***<<%>>NORMAL_TEXT Bold and italic<<%>>BOLD_AND_ITALIC ***<<%>>NORMAL_TEXT  <<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT strikethrough also<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT .
-NORMAL_TEXT Trying a <<%>>BOLD **<<%>>NORMAL_TEXT Bold<<%>>BOLD **<<%>>NORMAL_TEXT  <<%>>ITALIC *<<%>>NORMAL_TEXT Italic<<%>>ITALIC *<<%>>NORMAL_TEXT  and <<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>NORMAL_TEXT strikethrough with bold<<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT  and <<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT vice versa<<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>NORMAL_TEXT .
-NORMAL_TEXT Deep nested <<%>>BOLD_AND_ITALIC ***<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT italic bold and strikthrough<<%>>STRIKETHROUGH ~~<<%>>BOLD_AND_ITALIC ***
-NORMAL_TEXT Some <<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT italic emphasis<<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT  and <<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT vice versa<<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT . 
-NORMAL_TEXT Multiple <<%>>BOLD **<<%>>NORMAL_TEXT nested <<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT elements<<%>>STRIKETHROUGH ~~<<%>>NORMAL_TEXT  <<%>>EMPHASIS `<<%>>ITALIC *<<%>>NORMAL_TEXT mdelements<<%>>ITALIC *<<%>>EMPHASIS `<<%>>NORMAL_TEXT  in one <<%>>ITALIC *<<%>>NORMAL_TEXT parent<<%>>ITALIC *<<%>>NORMAL_TEXT  <<%>>BOLD **<<%>>NORMAL_TEXT  element.
+PLAIN_TEXT This sentence contains a <<%>>BOLD **<<%>>PLAIN_TEXT Bold<<%>>BOLD **<<%>>PLAIN_TEXT , and <<%>>ITALIC *<<%>>PLAIN_TEXT Italic<<%>>ITALIC *<<%>>PLAIN_TEXT  and a <<%>>BOLD_AND_ITALIC ***<<%>>PLAIN_TEXT Bold and italic<<%>>BOLD_AND_ITALIC ***<<%>>PLAIN_TEXT  <<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT strikethrough also<<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT .
+PLAIN_TEXT Trying a <<%>>BOLD **<<%>>PLAIN_TEXT Bold<<%>>BOLD **<<%>>PLAIN_TEXT  <<%>>ITALIC *<<%>>PLAIN_TEXT Italic<<%>>ITALIC *<<%>>PLAIN_TEXT  and <<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>PLAIN_TEXT strikethrough with bold<<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT  and <<%>>BOLD **<<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT vice versa<<%>>STRIKETHROUGH ~~<<%>>BOLD **<<%>>PLAIN_TEXT .
+PLAIN_TEXT Deep nested <<%>>BOLD_AND_ITALIC ***<<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT italic bold and strikthrough<<%>>STRIKETHROUGH ~~<<%>>BOLD_AND_ITALIC ***
+PLAIN_TEXT Some <<%>>ITALIC *<<%>>EMPHASIS `<<%>>PLAIN_TEXT italic emphasis<<%>>EMPHASIS `<<%>>ITALIC *<<%>>PLAIN_TEXT  and <<%>>EMPHASIS `<<%>>ITALIC *<<%>>PLAIN_TEXT vice versa<<%>>ITALIC *<<%>>EMPHASIS `<<%>>PLAIN_TEXT . 
+PLAIN_TEXT Multiple <<%>>BOLD **<<%>>PLAIN_TEXT nested <<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT elements<<%>>STRIKETHROUGH ~~<<%>>PLAIN_TEXT  <<%>>EMPHASIS `<<%>>ITALIC *<<%>>PLAIN_TEXT mdelements<<%>>ITALIC *<<%>>EMPHASIS `<<%>>PLAIN_TEXT  in one <<%>>ITALIC *<<%>>PLAIN_TEXT parent<<%>>ITALIC *<<%>>PLAIN_TEXT  <<%>>BOLD **<<%>>PLAIN_TEXT  element.
 
-HEADING_4 #### <<%>>ITALIC *<<%>>NORMAL_TEXT Italic Unordered lists<<%>>ITALIC *
+HEADING_4 #### <<%>>ITALIC *<<%>>PLAIN_TEXT Italic Unordered lists<<%>>ITALIC *
 
-NORMAL_TEXT Image: 
+PLAIN_TEXT Image: 
 
-BULLET_POINT - <<%>>NORMAL_TEXT item 1 with <<%>>BOLD **<<%>>NORMAL_TEXT bold<<%>>BOLD **
-BULLET_POINT - <<%>>NORMAL_TEXT item 2
+BULLET_POINT - <<%>>PLAIN_TEXT item 1 with <<%>>BOLD **<<%>>PLAIN_TEXT bold<<%>>BOLD **
+BULLET_POINT - <<%>>PLAIN_TEXT item 2
 
-HEADING_5 ##### <<%>>NORMAL_TEXT Heading 5
+HEADING_5 ##### <<%>>PLAIN_TEXT Heading 5
 
-BLOCK_QUOTE > <<%>>BOLD **<<%>>NORMAL_TEXT  kbjkbafe <<%>>BOLD **
+BLOCK_QUOTE > <<%>>BOLD **<<%>>PLAIN_TEXT  kbjkbafe <<%>>BOLD **
 
-HEADING_6 ###### <<%>>NORMAL_TEXT Heading 
+HEADING_6 ###### <<%>>PLAIN_TEXT Heading 
 
-NORMAL_TEXT A <<%>>UNDERLINE __<<%>>NORMAL_TEXT underlined<<%>>UNDERLINE __<<%>>NORMAL_TEXT  element and a nested <<%>>UNDERLINE __<<%>>ITALIC *<<%>>NORMAL_TEXT underline<<%>>ITALIC *<<%>>UNDERLINE __
+PLAIN_TEXT A <<%>>UNDERLINE __<<%>>PLAIN_TEXT underlined<<%>>UNDERLINE __<<%>>PLAIN_TEXT  element and a nested <<%>>UNDERLINE __<<%>>ITALIC *<<%>>PLAIN_TEXT underline<<%>>ITALIC *<<%>>UNDERLINE __

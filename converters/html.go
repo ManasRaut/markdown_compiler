@@ -82,7 +82,7 @@ func getTags(def ir.ElementDefinition, attributes string) (string, string) {
 		return "<li>", "</li>"
 	case ir.LIST_SEQUENCE_DEFINITION:
 		return fmt.Sprintf("<li %s>", attributes), "</li>"
-	case ir.NORMAL_TEXT_DEFINITION:
+	case ir.PLAIN_TEXT_DEFINITION:
 		return "", ""
 	case ir.CHECKED_BOX_DEFINITION:
 		return `<input type="checkbox" checked>`, "</input>"
