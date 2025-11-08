@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"slices"
 
-	"github.com/ManasRaut/lexe/ir"
+	"github.com/ManasRaut/md_lex/ir"
 )
 
 type TokenMatcher struct {

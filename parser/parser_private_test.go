@@ -3,7 +3,7 @@ package parser
 import (
 	"testing"
 
-	"github.com/ManasRaut/lexe/ir"
+	"github.com/ManasRaut/md_lex/ir"
 )
 
 func Test_parseBlockElements(t *testing.T) {

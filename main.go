@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ManasRaut/lexe/ir"
-	"github.com/ManasRaut/lexe/lexer"
-	"github.com/ManasRaut/lexe/parser"
+	"github.com/ManasRaut/md_lex/ir"
+	"github.com/ManasRaut/md_lex/lexer"
+	"github.com/ManasRaut/md_lex/parser"
 )
 
 //go:embed markdown_elements.md

@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ManasRaut/lexe/ir"
+	"github.com/ManasRaut/md_lex/ir"
 )
 
 const token_seperator = "<<%>>"

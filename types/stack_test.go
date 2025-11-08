@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/ManasRaut/lexe/types"
+	"github.com/ManasRaut/md_lex/types"
 )
 
 type stackActionType string

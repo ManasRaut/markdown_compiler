@@ -1,4 +1,4 @@
-module github.com/ManasRaut/lexe
+module github.com/ManasRaut/md_lex
 
 go 1.24.5
 

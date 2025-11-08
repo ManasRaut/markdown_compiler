@@ -3,8 +3,8 @@ package tests_test
 import (
 	"testing"
 
-	"github.com/ManasRaut/lexe/ir"
-	"github.com/ManasRaut/lexe/parser"
+	"github.com/ManasRaut/md_lex/ir"
+	"github.com/ManasRaut/md_lex/parser"
 )
 
 func TestParser(t *testing.T) {
