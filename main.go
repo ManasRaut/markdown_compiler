@@ -1,43 +1,51 @@
 package main
 
 import (
+	"bytes"
 	_ "embed"
 	"fmt"
-	"log"
+	"os"
+	"strings"
 
-	"github.com/ManasRaut/md_lex/ir"
-	"github.com/ManasRaut/md_lex/lexer"
-	"github.com/ManasRaut/md_lex/parser"
+	"github.com/ManasRaut/md_lex/converters"
 )
 
-//go:embed markdown_elements.md
+//go:embed tests/sample_markdown.md
 var exmapleSource string
-
-//go_:embed markdown_elements2.md
 
 func main() {
 
-	lex := lexer.InitLexer(exmapleSource)
-	tokens := lex.Parse()
-
-	printTokens(tokens)
-	fmt.Println("\n============================")
-
-	psr := parser.NewParser(tokens)
-
-	err := psr.Parse()
+	mdToElementCompiler, err := NewMDLexCompiler(converters.HTMLConverter{})
 	if err != nil {
-		log.Fatalf("%v", err)
+		panic(err)
 	}
-	fmt.Println(psr.GetElements())
-}
+	uiElement, err := mdToElementCompiler.Compile(strings.NewReader(exmapleSource))
+	if err != nil {
+		panic(err)
+	}
 
-func printTokens(tokens []ir.Token) {
-	for _, token := range tokens {
-		if token.T == ir.TK_LINE_BREAK {
-			fmt.Println()
-		} else {
-			fmt.Printf("(%s:::%s) ", token.String(), token.V)
-		}
+	htmlFile := bytes.Buffer{}
+	for _, u := range uiElement {
+		fmt.Println(*u)
+		htmlFile.WriteString(string(*u))
 	}
+
+	output := fmt.Sprintf(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main>
+%s
+</main>
+</body>
+</html>
+`, htmlFile.String())
+	os.WriteFile("./result.html", []byte(output), 0644)
+
 }
