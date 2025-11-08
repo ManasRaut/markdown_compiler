@@ -14,7 +14,7 @@ type MDLexCompiler[R any] struct {
 	converter converters.Converter[R]
 }
 
-func (c *MDLexCompiler[R]) Compile(r io.Reader) ([]*R, error) {
+func (c *MDLexCompiler[R]) Compile(r io.Reader) (*R, error) {
 	sourceCode, err := readSourceCode(r)
 	if err != nil {
 		return nil, err
@@ -30,14 +30,7 @@ func (c *MDLexCompiler[R]) Compile(r io.Reader) ([]*R, error) {
 	}
 	mdElements := parser.GetElements()
 
-	uiElements := make([]*R, 0)
-	for _, mdElement := range mdElements {
-		uiElement, err := c.converter.Convert(mdElement)
-		if err != nil {
-			return nil, err
-		}
-		uiElements = append(uiElements, &uiElement)
-	}
+	uiElements, err := c.converter.Convert(mdElements)
 
 	return uiElements, nil
 }

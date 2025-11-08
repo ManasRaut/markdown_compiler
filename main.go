@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	_ "embed"
 	"fmt"
 	"os"
@@ -19,16 +18,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	uiElement, err := mdToElementCompiler.Compile(strings.NewReader(exmapleSource))
+	html, err := mdToElementCompiler.Compile(strings.NewReader(exmapleSource))
 	if err != nil {
 		panic(err)
 	}
 
-	htmlFile := bytes.Buffer{}
-	for _, u := range uiElement {
-		fmt.Println(*u)
-		htmlFile.WriteString(string(*u))
-	}
+	fmt.Println(*html)
 
 	output := fmt.Sprintf(`
 <!DOCTYPE html>
@@ -45,7 +40,7 @@ func main() {
 </main>
 </body>
 </html>
-`, htmlFile.String())
+`, string(*html))
 	os.WriteFile("./result.html", []byte(output), 0644)
 
 }

@@ -8,8 +8,6 @@ import (
 )
 
 type htmlContext struct {
-	inUnorderedList bool
-	inOrderedList   bool
 }
 
 type HTMLMarkup string
@@ -17,54 +15,56 @@ type HTMLMarkup string
 type HTMLConverter struct {
 }
 
-func (c HTMLConverter) Convert(e *ir.MarkdownElement) (HTMLMarkup, error) {
+func (c HTMLConverter) Convert(e []*ir.MarkdownElement) (*HTMLMarkup, error) {
 
-	html, err := traverseAndConvert(&htmlContext{}, []*ir.MarkdownElement{e})
+	html, err := traverseAndConvert(&htmlContext{}, e)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return html, nil
+	return &html, nil
 }
 
 func traverseAndConvert(ctx *htmlContext, elements []*ir.MarkdownElement) (HTMLMarkup, error) {
 	html := strings.Builder{}
 
-	for _, element := range elements {
+	for i := range elements {
+		element := elements[i]
 
-		// if element.Def == ir.BULLET_POINT_DEFINITION && !ctx.inUnorderedList {
-		// 	html.WriteString("<ul>")
-		// 	ctx.inUnorderedList = true
-		// }
-		// if element.Def == ir.LIST_SEQUENCE_DEFINITION && !ctx.inOrderedList {
-		// 	html.WriteString("<ol>")
-		// 	ctx.inOrderedList = true
-		// }
-
-		startTag, endTag := getTags(element.Def)
 		childrenHTML, err := traverseAndConvert(ctx, element.C)
+
+		// if element.Def == ir.LINE_BREAK_DEFINITION && i != 0 && elements[i-1].Def != ir.LINE_BREAK_DEFINITION && (elements[i-1].Def.Category == ir.CATEGORY_BLOCK || elements[i-1].Def.Category == ir.CATEGORY_SELF_CONTAINED) {
+		// 	fmt.Printf("DEBUG:: Skipped element %v , previous %v\n", element, elements[i-1])
+		// 	continue
+		// }
 		if err != nil {
 			return "", err
 		}
 		if len(element.C) == 0 {
 			childrenHTML = HTMLMarkup(element.V)
 		}
-		html.WriteString(fmt.Sprintf("%s%s%s", startTag, childrenHTML, endTag))
 
-		// if ctx.inUnorderedList && element.Def != ir.BULLET_POINT_DEFINITION {
-		// 	html.WriteString("</ul>")
-		// 	ctx.inUnorderedList = false
-		// }
-		// if ctx.inOrderedList && element.Def != ir.LIST_SEQUENCE_DEFINITION {
-		// 	html.WriteString("</ol>")
-		// 	ctx.inOrderedList = false
-		// }
+		var startTag, endTag string
+		switch element.Def {
+		case ir.LIST_SEQUENCE_DEFINITION:
+			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
+			startTag = "<ol>" + startTag
+			endTag = "</ol>" + endTag
+		case ir.BULLET_POINT_DEFINITION:
+			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
+			startTag = "<ul>" + startTag
+			endTag = "</ul>" + endTag
+		default:
+			startTag, endTag = getTags(element.Def, "")
+		}
+
+		html.WriteString(fmt.Sprintf("%s%s%s", startTag, childrenHTML, endTag))
 	}
 
 	return HTMLMarkup(html.String()), nil
 }
 
-func getTags(def ir.ElementDefinition) (string, string) {
+func getTags(def ir.ElementDefinition, attributes string) (string, string) {
 	switch def {
 	case ir.HEADING_1_DEFINITION:
 		return "<h1>", "</h1>"
@@ -78,8 +78,10 @@ func getTags(def ir.ElementDefinition) (string, string) {
 		return "<h5>", "</h5>"
 	case ir.HEADING_6_DEFINITION:
 		return "<h6>", "</h6>"
-	case ir.BULLET_POINT_DEFINITION, ir.LIST_SEQUENCE_DEFINITION:
+	case ir.BULLET_POINT_DEFINITION:
 		return "<li>", "</li>"
+	case ir.LIST_SEQUENCE_DEFINITION:
+		return fmt.Sprintf("<li %s>", attributes), "</li>"
 	case ir.NORMAL_TEXT_DEFINITION:
 		return "", ""
 	case ir.CHECKED_BOX_DEFINITION:
