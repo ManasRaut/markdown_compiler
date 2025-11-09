@@ -33,10 +33,6 @@ func traverseAndConvert(ctx *htmlContext, elements []*ir.MarkdownElement) (HTMLM
 
 		childrenHTML, err := traverseAndConvert(ctx, element.C)
 
-		// if element.Def == ir.LINE_BREAK_DEFINITION && i != 0 && elements[i-1].Def != ir.LINE_BREAK_DEFINITION && (elements[i-1].Def.Category == ir.CATEGORY_BLOCK || elements[i-1].Def.Category == ir.CATEGORY_SELF_CONTAINED) {
-		// 	fmt.Printf("DEBUG:: Skipped element %v , previous %v\n", element, elements[i-1])
-		// 	continue
-		// }
 		if err != nil {
 			return "", err
 		}
@@ -49,11 +45,11 @@ func traverseAndConvert(ctx *htmlContext, elements []*ir.MarkdownElement) (HTMLM
 		case ir.LIST_SEQUENCE_DEFINITION:
 			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
 			startTag = "<ol>" + startTag
-			endTag = "</ol>" + endTag
+			endTag = endTag + "</ol>"
 		case ir.BULLET_POINT_DEFINITION:
 			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
 			startTag = "<ul>" + startTag
-			endTag = "</ul>" + endTag
+			endTag = endTag + "</ul>"
 		default:
 			startTag, endTag = getTags(element.Def, "")
 		}

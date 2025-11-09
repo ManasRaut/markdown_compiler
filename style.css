@@ -2,24 +2,17 @@
     box-sizing: border-box;
 }
 
-body main * {
+h1, h2, h3, h4, h5, h6, hr, pre, ol, ul, blockquote {
     display: inline-block;
+    width: 100%;
 }
-
-li {
-    display: list-item !important;
-} 
 
 ol, ul {
     margin: 0px
 }
 
-main {
-    /* margin: 16px auto;
-    padding: 12px;
-    min-width: 900px;
-    max-width: 900px;
-    border: 4px dashed gray; */
+i * {
+    font-style: italic !important;
 }
 
 em {
@@ -27,10 +20,6 @@ em {
     background-color: lightgray;
     padding: 0px 4px;
     border-radius: 4px;
-}
-
-hr {
-    display: block !important;
 }
 
 pre {
@@ -63,4 +52,13 @@ blockquote {
     padding: 8px 8px 8px 24px;
     margin: 0;
     width: 100%;
+}
+
+h1, h2 {
+    border-bottom: 1px solid gray;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding-bottom: 8px;
+    margin-bottom: 0px;
 }

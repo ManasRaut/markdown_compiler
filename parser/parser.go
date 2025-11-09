@@ -47,7 +47,7 @@ func parseBlockElements(tkns []ir.Token) []unFinishedElement {
 		def := ir.ElementDefinitions[t.T]
 		// Default is normal text
 		el := unFinishedElement{
-			Def: ir.ElementDefinitions[ir.TK_PLAIN_TEXT],
+			Def: ir.PLAIN_TEXT_DEFINITION,
 			V: []ir.Token{{
 				T: ir.TK_PLAIN_TEXT, V: t.V,
 			}},
@@ -89,7 +89,7 @@ func parseAllBlockElements(i int, tkns []ir.Token, def ir.ElementDefinition) (un
 	}
 
 	s := i + 1
-	if def.T == ir.EL_PLAIN_TEXT {
+	if def.IncludeStartTokenInValue {
 		s--
 	}
 	b := unFinishedElement{
