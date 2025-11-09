@@ -49,7 +49,7 @@ Multiple **nested ~~elements~~ `*mdelements*` in one *parent* ** element.
 
 Image: 
 
-![The San Juan Mountains are beautiful](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png)
+![The image is not working](https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/250px-Tux.svg.png)
 Another ![Hyperlink](www.google.com) in line.
 
 - item 1 with **bold**

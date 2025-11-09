@@ -65,7 +65,7 @@ func handleMetadata(element *ir.MarkdownElement, childrenHTML HTMLMarkup) (strin
 	case ir.IMAGE_DEFINITION:
 		metadata := make(map[string]string)
 		json.Unmarshal([]byte(element.Metadata), &metadata)
-		startTag, endTag = getTags(element.Def, fmt.Sprintf(`alt=%s src="%s"`, metadata["label"], metadata["url"]))
+		startTag, endTag = getTags(element.Def, fmt.Sprintf(`alt="%s" src="%s"`, metadata["label"], metadata["url"]))
 	default:
 		startTag, endTag = getTags(element.Def, "")
 	}
