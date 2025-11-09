@@ -3,7 +3,7 @@ package parser
 import (
 	"strings"
 
-	"github.com/ManasRaut/md_lex/ir"
+	"github.com/ManasRaut/markdown_compiler/ir"
 )
 
 type unFinishedElement struct {

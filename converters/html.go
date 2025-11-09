@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ManasRaut/md_lex/ir"
+	"github.com/ManasRaut/markdown_compiler/ir"
 )
 
 type htmlContext struct {

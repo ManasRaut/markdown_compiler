@@ -3,8 +3,8 @@ package tests_test
 import (
 	"testing"
 
-	"github.com/ManasRaut/md_lex/ir"
-	"github.com/ManasRaut/md_lex/lexer"
+	"github.com/ManasRaut/markdown_compiler/ir"
+	"github.com/ManasRaut/markdown_compiler/lexer"
 )
 
 func TestLexer(t *testing.T) {

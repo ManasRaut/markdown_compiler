@@ -6,19 +6,20 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ManasRaut/md_lex/converters"
+	"github.com/ManasRaut/markdown_compiler"
+	"github.com/ManasRaut/markdown_compiler/converters"
 )
 
-//go:embed tests/sample_markdown.md
+//go:embed sample_markdown.md
 var exmapleSource string
 
 func main() {
 
-	mdToElementCompiler, err := NewMDLexCompiler(converters.HTMLConverter{})
+	markdownCompiler, err := markdown_compiler.NewMDCompiler(converters.HTMLConverter{})
 	if err != nil {
 		panic(err)
 	}
-	html, err := mdToElementCompiler.Compile(strings.NewReader(exmapleSource))
+	html, err := markdownCompiler.Compile(strings.NewReader(exmapleSource))
 	if err != nil {
 		panic(err)
 	}

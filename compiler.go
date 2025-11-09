@@ -1,20 +1,20 @@
-package main
+package markdown_compiler
 
 import (
 	"fmt"
 	"io"
 	"strings"
 
-	"github.com/ManasRaut/md_lex/converters"
-	"github.com/ManasRaut/md_lex/lexer"
-	"github.com/ManasRaut/md_lex/parser"
+	"github.com/ManasRaut/markdown_compiler/converters"
+	"github.com/ManasRaut/markdown_compiler/lexer"
+	"github.com/ManasRaut/markdown_compiler/parser"
 )
 
-type MDLexCompiler[R any] struct {
+type MDCompiler[R any] struct {
 	converter converters.Converter[R]
 }
 
-func (c *MDLexCompiler[R]) Compile(r io.Reader) (*R, error) {
+func (c *MDCompiler[R]) Compile(r io.Reader) (*R, error) {
 	sourceCode, err := readSourceCode(r)
 	if err != nil {
 		return nil, err
@@ -57,8 +57,8 @@ func readSourceCode(r io.Reader) (string, error) {
 	return sourceCode.String(), nil
 }
 
-func NewMDLexCompiler[R any](converter converters.Converter[R]) (*MDLexCompiler[R], error) {
-	return &MDLexCompiler[R]{
+func NewMDCompiler[R any](converter converters.Converter[R]) (*MDCompiler[R], error) {
+	return &MDCompiler[R]{
 		converter: converter,
 	}, nil
 }
