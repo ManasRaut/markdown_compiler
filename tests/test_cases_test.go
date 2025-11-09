@@ -151,7 +151,7 @@ func loadElement(els []*testElement) []*ir.MarkdownElement {
 		el = els[i]
 		children = loadElement(el.Children)
 		if definition, ok := ir.ElementDefinitions[ir.TokenType(el.Name)]; ok {
-			me := ir.NewMarkDownElement(definition, el.Value, children)
+			me := ir.NewMarkDownElement(definition, el.Value, "", children)
 			me.Metadata = el.Metadata
 			result = append(result, me)
 			i++

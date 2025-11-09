@@ -25,7 +25,9 @@ func (p *Parser) Parse() error {
 	blkElems := parseBlockElements(p.tks)
 	for _, el := range blkElems {
 		parsedElement := parseInlineElements(&el)
-		parsedElement.Metadata = el.Metadata
+		if parsedElement.Metadata == "" {
+			parsedElement.Metadata = el.Metadata
+		}
 		p.elms = append(p.elms, parsedElement)
 	}
 	return nil
@@ -111,17 +113,20 @@ func parseSelfStandingElements(i int, tkns []ir.Token, def ir.ElementDefinition)
 
 func parseInlineElements(el *unFinishedElement) *ir.MarkdownElement {
 	if el.Def.ContentType == ir.CONTENT_TYPE_NONE {
-		return ir.NewMarkDownElement(el.Def, "", nil)
+		return ir.NewMarkDownElement(el.Def, "", "", nil)
 	}
 	if el.Def.ContentType == ir.CONTENT_TYPE_PLAIN_TEXT {
-		return ir.NewMarkDownElement(el.Def, joinToString(el.V), nil)
+		return ir.NewMarkDownElement(el.Def, joinToString(el.V), "", nil)
+	}
+	if el.Def.ContentType == ir.CONTENT_TYPE_MEDIA {
+		return ir.NewMarkDownElement(el.Def, "", ir.MetadataHandler(el.Def, el.Metadata), nil)
 	}
 
 	if len(el.V) == 0 {
-		return ir.NewMarkDownElement(el.Def, "", nil)
+		return ir.NewMarkDownElement(el.Def, "", "", nil)
 	}
 
-	return ir.NewMarkDownElement(el.Def, "", parseInlineElementsTokens(el.V))
+	return ir.NewMarkDownElement(el.Def, "", "", parseInlineElementsTokens(el.V))
 }
 
 // TODO: Refactor this entire function later
@@ -143,7 +148,7 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 
 			if startToken == ir.TK_PLAIN_TEXT {
 				childValue := joinToString(tkns[startIdx:l])
-				child := ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, nil)
+				child := ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, "", nil)
 				children = append(children, child)
 				break
 			}
@@ -166,7 +171,7 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 		if startToken == ir.TK_PLAIN_TEXT {
 			if currTkn.T != ir.TK_PLAIN_TEXT {
 				childValue := joinToString(tkns[startIdx:i])
-				children = append(children, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, nil))
+				children = append(children, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, childValue, "", nil))
 				startToken = ir.TK_UNKNOWN
 				continue
 			}
@@ -190,9 +195,9 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 				childValue.WriteString(tkn.V)
 			}
 			if hasAllNormalText {
-				children = append(children, ir.NewMarkDownElement(startTokenDef, childValue.String(), nil))
+				children = append(children, ir.NewMarkDownElement(startTokenDef, childValue.String(), "", nil))
 			} else {
-				children = append(children, ir.NewMarkDownElement(startTokenDef, "", grandChildren))
+				children = append(children, ir.NewMarkDownElement(startTokenDef, "", "", grandChildren))
 			}
 			startToken = ir.TK_UNKNOWN
 		}
@@ -212,7 +217,7 @@ func parseInlineElementsTokens(tkns []ir.Token) []*ir.MarkdownElement {
 		if child != nil && child.Def == ir.PLAIN_TEXT_DEFINITION {
 			someChildrensValue.WriteString(child.V)
 		} else if checkpointIdx != idx {
-			compactedChildren = append(compactedChildren, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, someChildrensValue.String(), nil))
+			compactedChildren = append(compactedChildren, ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, someChildrensValue.String(), "", nil))
 			someChildrensValue = strings.Builder{}
 			checkpointIdx = idx
 			idx--

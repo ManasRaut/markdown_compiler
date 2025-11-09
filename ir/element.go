@@ -49,6 +49,7 @@ type ElementContentType int
 const (
 	CONTENT_TYPE_PLAIN_TEXT ElementContentType = iota
 	CONTENT_TYPE_INLINE_ELEMENTS
+	CONTENT_TYPE_MEDIA
 	CONTENT_TYPE_NONE
 )
 
@@ -83,31 +84,19 @@ func (m MarkdownElement) String() string {
 		childsString = b.String()
 	}
 	// return fmt.Sprintf("%s::%s(`%s`,`%s`)", m.Def.T, m.Id, m.V, childsString)
-	return fmt.Sprintf("%s(`%s`,`%s`)", m.Def.T, m.V, childsString)
+	return fmt.Sprintf("%s(`%s`,`%s`,`%s`)", m.Def.T, m.V, m.Metadata, childsString)
 }
 
-func NewMarkDownElement(Def ElementDefinition, V string, C []*MarkdownElement) *MarkdownElement {
+func NewMarkDownElement(Def ElementDefinition, V string, Metadata string, C []*MarkdownElement) *MarkdownElement {
 	id, err := gonanoid.New(10)
 	if err != nil {
 		panic(fmt.Sprintf("Error while creating new markdown element : %v", err))
 	}
 	return &MarkdownElement{
-		Id:  id,
-		Def: Def,
-		V:   V,
-		C:   C,
+		Id:       id,
+		Def:      Def,
+		V:        V,
+		C:        C,
+		Metadata: Metadata,
 	}
 }
-
-// ************************************************************
-// 						Inline Elements
-// ************************************************************
-
-// type InlineElement struct {
-// 	T ElementName
-// 	V string
-// }
-
-// func (a *InlineElement) Equal(b *InlineElement) bool {
-// 	return a.T == b.T && a.V == b.V
-// }

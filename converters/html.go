@@ -1,6 +1,7 @@
 package converters
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -40,24 +41,36 @@ func traverseAndConvert(ctx *htmlContext, elements []*ir.MarkdownElement) (HTMLM
 			childrenHTML = HTMLMarkup(element.V)
 		}
 
-		var startTag, endTag string
-		switch element.Def {
-		case ir.LIST_SEQUENCE_DEFINITION:
-			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
-			startTag = "<ol>" + startTag
-			endTag = endTag + "</ol>"
-		case ir.BULLET_POINT_DEFINITION:
-			startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
-			startTag = "<ul>" + startTag
-			endTag = endTag + "</ul>"
-		default:
-			startTag, endTag = getTags(element.Def, "")
-		}
+		startTag, endTag, childrenHTML := handleMetadata(element, childrenHTML)
 
 		html.WriteString(fmt.Sprintf("%s%s%s", startTag, childrenHTML, endTag))
 	}
 
 	return HTMLMarkup(html.String()), nil
+}
+
+func handleMetadata(element *ir.MarkdownElement, childrenHTML HTMLMarkup) (string, string, HTMLMarkup) {
+
+	var startTag, endTag string
+
+	switch element.Def {
+	case ir.LIST_SEQUENCE_DEFINITION:
+		startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
+		startTag = "<ol>" + startTag
+		endTag = endTag + "</ol>"
+	case ir.BULLET_POINT_DEFINITION:
+		startTag, endTag = getTags(element.Def, fmt.Sprintf(`value="%s"`, element.Metadata))
+		startTag = "<ul>" + startTag
+		endTag = endTag + "</ul>"
+	case ir.IMAGE_DEFINITION:
+		metadata := make(map[string]string)
+		json.Unmarshal([]byte(element.Metadata), &metadata)
+		startTag, endTag = getTags(element.Def, fmt.Sprintf(`alt=%s src="%s"`, metadata["label"], metadata["url"]))
+	default:
+		startTag, endTag = getTags(element.Def, "")
+	}
+
+	return startTag, endTag, childrenHTML
 }
 
 func getTags(def ir.ElementDefinition, attributes string) (string, string) {
@@ -93,7 +106,7 @@ func getTags(def ir.ElementDefinition, attributes string) (string, string) {
 	case ir.HORIZONTAL_LINE_DEFINITION:
 		return "<hr>", ""
 	case ir.IMAGE_DEFINITION:
-		return "<img>", ""
+		return fmt.Sprintf("<img %s />", attributes), ""
 	case ir.BOLD_AND_ITALIC_DEFINITION:
 		return "<b><i>", "</i></b>"
 	case ir.UNDERLINE_DEFINITION:

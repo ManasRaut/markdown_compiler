@@ -1,5 +1,10 @@
 package ir
 
+import (
+	"fmt"
+	"regexp"
+)
+
 type ElementDefinition struct {
 	T                        ElementName
 	StartToken               TokenType
@@ -138,27 +143,11 @@ var IMAGE_DEFINITION = ElementDefinition{
 	StartToken:               TK_IMAGE,
 	EndToken:                 TK_IMAGE,
 	Category:                 CATEGORY_SELF_CONTAINED,
-	ContentType:              CONTENT_TYPE_INLINE_ELEMENTS,
+	ContentType:              CONTENT_TYPE_MEDIA,
 	IncludeStartTokenInValue: false,
 }
 
 // ---------------------- Inline elements ----------------------
-//
-//	var CHECKED_BOX_DEFINITION = ElementDefinition{
-//		T:           EL_CHECKED_BOX,
-//		StartToken:  TK_CHECKED_BOX,
-//		EndToken:    TK_CHECKED_BOX,
-//		Category:    CATEGORY_INLINE,
-//		ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
-//	}
-//
-//	var UNCHECKED_BOX_DEFINITION = ElementDefinition{
-//		T:           EL_UNCHECKED_BOX,
-//		StartToken:  TK_UNCHECKED_BOX,
-//		EndToken:    TK_UNCHECKED_BOX,
-//		Category:    CATEGORY_INLINE,
-//		ContentType: CONTENT_TYPE_INLINE_ELEMENTS,
-//	}
 var BOLD_AND_ITALIC_DEFINITION = ElementDefinition{
 	T:                        EL_BOLD_AND_ITALIC,
 	StartToken:               TK_BOLD_AND_ITALIC,
@@ -246,4 +235,23 @@ var ElementDefinitions map[TokenType]ElementDefinition = map[TokenType]ElementDe
 	TK_EMPHASIS:         EMPHASIS_DEFINITION,
 	TK_ESCAPE_CHARACTER: ESCAPE_CHARACTER_DEFINITION,
 	TK_STRIKETHROUGH:    STRIKETHROUGH_DEFINITION,
+}
+
+func MetadataHandler(def ElementDefinition, s string) string {
+	if def == IMAGE_DEFINITION {
+		return ImageMetadataHandler(s)
+	}
+	return s
+}
+
+func ImageMetadataHandler(s string) string {
+	regex := regexp.MustCompile(`!\[(.+)\]\((.+)\)`)
+	res := regex.FindStringSubmatch(s)
+	if len(res) < 2 {
+		return s
+	}
+	if len(res) < 3 {
+		return fmt.Sprintf(`{"label":"%s","url":""}`, res[1])
+	}
+	return fmt.Sprintf(`{"label":"%s","url":"%s"}`, res[1], res[2])
 }

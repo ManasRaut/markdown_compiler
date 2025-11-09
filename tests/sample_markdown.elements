@@ -236,6 +236,13 @@
     ]},
     {"name": "LINE_BREAK", "value": ""},
     {"name": "LINE_BREAK", "value": ""},
+    {"name": "IMAGE", "value": "", "metadata": "{\"label\":\"The San Juan Mountains are beautiful!","url":"https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png\"}"},
+    {"name": "LINE_BREAK", "value": ""},
+    {"name": "PLAIN_TEXT", "value": "", "children": [
+        {"name": "PLAIN_TEXT", "value": "Another ![Hyperlink](www.google.com) in line."}
+    ]},
+    {"name": "LINE_BREAK", "value": ""},
+    {"name": "LINE_BREAK", "value": ""},
     {"name": "BULLET_POINT", "value": "", "children": [
         {"name": "PLAIN_TEXT", "value": "item 1 with "},
         {"name": "BOLD", "value": "bold"}

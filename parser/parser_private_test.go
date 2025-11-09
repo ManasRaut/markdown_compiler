@@ -270,34 +270,48 @@ func Test_parseInlineElements(t *testing.T) {
 			name: "Self standing element",
 			e:    unFinishedElement{Def: ir.HORIZONTAL_LINE_DEFINITION, V: []ir.Token{}},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.HORIZONTAL_LINE_DEFINITION, "", nil)},
+				ir.NewMarkDownElement(ir.HORIZONTAL_LINE_DEFINITION, "", "", nil)},
 		},
 		{
 			name: "Image",
-			e:    unFinishedElement{Def: ir.IMAGE_DEFINITION, V: []ir.Token{{T: ir.TK_PLAIN_TEXT, V: `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png")`}}},
+			e:    unFinishedElement{Def: ir.IMAGE_DEFINITION, Metadata: `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png)`, V: nil},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.IMAGE_DEFINITION, `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png")`, nil)},
+				ir.NewMarkDownElement(ir.IMAGE_DEFINITION, "",
+					`{"label":"The San Juan Mountains are beautiful!","url":"https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png"}`,
+					nil,
+				),
+			},
 		},
+		// {
+		// 	name: "Hyperlink",
+		// 	e:    unFinishedElement{Def: ir.IMAGE_DEFINITION, Metadata: `![The San Juan Mountains are beautiful!](https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png)`, V: nil},
+		// 	want: []*ir.MarkdownElement{
+		// 		ir.NewMarkDownElement(ir.IMAGE_DEFINITION, "",
+		// 			`{"label":"The San Juan Mountains are beautiful!","url":"https://user-images.githubusercontent.com/9877795/143689169-e3386847-46ad-4747-9934-2293f3d39abd.png"}`,
+		// 			nil,
+		// 		),
+		// 	},
+		// },
 		{
 			name: "Underline",
 			e:    unFinishedElement{Def: ir.PLAIN_TEXT_DEFINITION, V: []ir.Token{{T: ir.TK_UNDERLINE, V: "__"}, {T: ir.TK_PLAIN_TEXT, V: "Underline"}, {T: ir.TK_UNDERLINE, V: "__"}, {T: ir.TK_PLAIN_TEXT, V: " element"}}},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "", []*ir.MarkdownElement{
-					ir.NewMarkDownElement(ir.UNDERLINE_DEFINITION, "Underline", nil),
-					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " element", nil),
+				ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "", "", []*ir.MarkdownElement{
+					ir.NewMarkDownElement(ir.UNDERLINE_DEFINITION, "Underline", "", nil),
+					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " element", "", nil),
 				})},
 		},
 		{
 			name: "CodeBlock",
 			e:    unFinishedElement{Def: ir.CODE_BLOCK_DEFINITION, V: []ir.Token{{T: ir.TK_PLAIN_TEXT, V: "This is a heading 1"}}},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.CODE_BLOCK_DEFINITION, "This is a heading 1", nil)},
+				ir.NewMarkDownElement(ir.CODE_BLOCK_DEFINITION, "This is a heading 1", "", nil)},
 		},
 		{
 			name: "Heading 1 with normal text",
 			e:    unFinishedElement{Def: ir.HEADING_1_DEFINITION, V: []ir.Token{{T: ir.TK_PLAIN_TEXT, V: "This is a heading 1"}}},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.HEADING_1_DEFINITION, "", []*ir.MarkdownElement{ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This is a heading 1", nil)})},
+				ir.NewMarkDownElement(ir.HEADING_1_DEFINITION, "", "", []*ir.MarkdownElement{ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This is a heading 1", "", nil)})},
 		},
 		{
 			name: "Bold in normal text",
@@ -308,10 +322,10 @@ func Test_parseInlineElements(t *testing.T) {
 				{T: ir.TK_BOLD, V: "**"},
 				{T: ir.TK_PLAIN_TEXT, V: " text."}}},
 			want: []*ir.MarkdownElement{
-				ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "", []*ir.MarkdownElement{
-					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This is a ", nil),
-					ir.NewMarkDownElement(ir.BOLD_DEFINITION, "BOLD", nil),
-					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " text.", nil),
+				ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "", "", []*ir.MarkdownElement{
+					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This is a ", "", nil),
+					ir.NewMarkDownElement(ir.BOLD_DEFINITION, "BOLD", "", nil),
+					ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " text.", "", nil),
 				})},
 		},
 		{
@@ -332,11 +346,11 @@ func Test_parseInlineElements(t *testing.T) {
 			want: []*ir.MarkdownElement{
 				ir.NewMarkDownElement(
 					ir.PLAIN_TEXT_DEFINITION,
-					"",
+					"", "",
 					[]*ir.MarkdownElement{
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This text contains a ", nil),
-						ir.NewMarkDownElement(ir.BOLD_AND_ITALIC_DEFINITION, "Italic and Bold ", nil),
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "text with *** no ending.", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This text contains a ", "", nil),
+						ir.NewMarkDownElement(ir.BOLD_AND_ITALIC_DEFINITION, "Italic and Bold ", "", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "text with *** no ending.", "", nil),
 					},
 				),
 			},
@@ -354,9 +368,9 @@ func Test_parseInlineElements(t *testing.T) {
 			want: []*ir.MarkdownElement{
 				ir.NewMarkDownElement(
 					ir.HEADING_1_DEFINITION,
-					"",
+					"", "",
 					[]*ir.MarkdownElement{
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This text ` incomplete emphasis text.", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This text ` incomplete emphasis text.", "", nil),
 					},
 				),
 			},
@@ -395,20 +409,20 @@ func Test_parseInlineElements(t *testing.T) {
 			want: []*ir.MarkdownElement{
 				ir.NewMarkDownElement(
 					ir.PLAIN_TEXT_DEFINITION,
-					"",
+					"", "",
 					[]*ir.MarkdownElement{
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This paragraph contains an ", nil),
-						ir.NewMarkDownElement(ir.ITALIC_DEFINITION, "italic ", nil),
-						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold and bolder", nil),
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " and ", nil),
-						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, " strikethourgh text.", nil),
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "Also has ", nil),
-						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, "", []*ir.MarkdownElement{
-							ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "a ", nil),
-							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "double nested strikethought and bold ", nil),
-							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "and again bold ", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This paragraph contains an ", "", nil),
+						ir.NewMarkDownElement(ir.ITALIC_DEFINITION, "italic ", "", nil),
+						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold and bolder", "", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " and ", "", nil),
+						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, " strikethourgh text.", "", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "Also has ", "", nil),
+						ir.NewMarkDownElement(ir.STRIKETHROUGH_DEFINITION, "", "", []*ir.MarkdownElement{
+							ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "a ", "", nil),
+							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "double nested strikethought and bold ", "", nil),
+							ir.NewMarkDownElement(ir.BOLD_DEFINITION, "and again bold ", "", nil),
 						}),
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, ".", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, ".", "", nil),
 					},
 				),
 			},
@@ -431,11 +445,11 @@ func Test_parseInlineElements(t *testing.T) {
 			want: []*ir.MarkdownElement{
 				ir.NewMarkDownElement(
 					ir.BLOCK_QUOTE_DEFINITION,
-					"",
+					"", "",
 					[]*ir.MarkdownElement{
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This paragraph contains a ~~ incomplete strikethourgh but have a complete ", nil),
-						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold", nil),
-						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " after it.", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, "This paragraph contains a ~~ incomplete strikethourgh but have a complete ", "", nil),
+						ir.NewMarkDownElement(ir.BOLD_DEFINITION, "bold", "", nil),
+						ir.NewMarkDownElement(ir.PLAIN_TEXT_DEFINITION, " after it.", "", nil),
 					},
 				),
 			},
@@ -456,7 +470,7 @@ func deepCompare(w *ir.MarkdownElement, g *ir.MarkdownElement) bool {
 	if w == nil && g == nil {
 		return true
 	}
-	if (w == nil && g != nil) || (w != nil && g == nil) || (w.V != g.V) || len(w.C) != len(g.C) {
+	if (w == nil && g != nil) || (w != nil && g == nil) || (w.V != g.V) || len(w.C) != len(g.C) || w.Metadata != g.Metadata {
 		return false
 	}
 	if w.C == nil && g.C == nil {
